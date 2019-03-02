@@ -1,0 +1,45 @@
+.PermissionAndMedicalInformationForm {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  width: 60%;
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-width: 2px;
+  border-color: #000000;
+  margin: 10px;
+}
+
+.Section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-bottom-style: solid;
+  border-width: 1px;
+  border-color: #000000;
+  padding: 5px;
+}
+
+.SectionForm {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+h2.SectionHeading {
+  display: block;
+  font-size: 0.5em;
+  border-bottom-style: solid;
+  border-width: 1px;
+  border-color: #000000;
+}
+
+label {
+  font-size: 0.2em;
+}
+
+canvas {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #000000;
+}
