@@ -1,0 +1,10 @@
+.NavigationGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+
+.NavigationLink {
+  margin: 10px;
+}
