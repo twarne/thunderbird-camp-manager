@@ -206,7 +206,7 @@ const Registration = props => {
     if (props.match.params.eventKey) {
       props.firebase.loadEventDetails(props.match.params.eventKey).then(eventDoc => {
         console.log(eventDoc);
-        onChange('eventRef')(eventDoc.docs[0]);
+        onChange('eventRef')(eventDoc.docs[0].ref);
         setEvent(eventDoc.docs[0].data());
       });
     }
