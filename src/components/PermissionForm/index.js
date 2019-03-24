@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 import SignatureCanvas from 'react-signature-canvas';
 import { FormGroup, Typography, FormLabel, FormControl, Grid, Button } from '@material-ui/core';
 import { withTheme } from '@material-ui/core/styles';
@@ -50,9 +51,7 @@ const PermissionForm = props => {
       <FormGroup>
         <Grid container spacing={24}>
           <Grid item xs={12}>
-            <Typography variant="body1" gutterBottom>
-              {props.releaseText}
-            </Typography>
+            <ReactMarkdown source={props.releaseText} />
           </Grid>
           {props.includeParticipant && (
             <React.Fragment>
