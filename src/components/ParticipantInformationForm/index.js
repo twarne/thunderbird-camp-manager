@@ -15,7 +15,7 @@ const SHIRT_SIZES = [
 ];
 
 const WARDS = [
-  { key: 'ward_ap', value: 'Arrowhead Park', label: 'Arrowhead Park' },
+  { key: 'ward_ar', value: 'Arrowhead Ranch', label: 'Arrowhead Ranch' },
   { key: 'ward_mr', value: 'Mountain Ridge', label: 'Mountain Ridge' },
   { key: 'ward_sv', value: 'Sierra Verde', label: 'Sierra Verde' },
   { key: 'ward_sm', value: 'Sonoran Mountain', label: 'Sonoran Mountain' },
