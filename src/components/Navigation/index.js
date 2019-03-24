@@ -35,15 +35,6 @@ const NavigationAuth = authUser => (
   </div>
 );
 
-const NavigationNonAuth = () => (
-  <div className="NavigationGroup">
-    <div className="NavigationLink">
-      <Link to={ROUTES.EVENTS}>Events</Link>
-    </div>
-    <div className="NavigationLink">
-      <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-    </div>
-  </div>
-);
+const NavigationNonAuth = () => <React.Fragment />;
 
 export default Navigation;

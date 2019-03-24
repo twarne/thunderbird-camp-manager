@@ -9,13 +9,8 @@ const ParentsPage = () => (
     <span>Please complete the following forms for each youth:</span>
     <ul>
       <li>
-        <Link to={{ pathname: ROUTES.PERMISSION_FORM, state: { eventId: 'w7fGUDHCxhyxnlVmCm6r' } }}>
+        <Link to={{ pathname: ROUTES.REGISTRATION, state: { eventId: 'w7fGUDHCxhyxnlVmCm6r' } }}>
           Permission and Medical Information
-        </Link>
-      </li>
-      <li>
-        <Link to={{ pathname: ROUTES.RELEASE_FORM, state: { eventId: 'w7fGUDHCxhyxnlVmCm6r' } }}>
-          Participant Release
         </Link>
       </li>
     </ul>

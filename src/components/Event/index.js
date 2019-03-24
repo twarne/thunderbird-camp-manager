@@ -1,58 +1,67 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import { CssBaseline, AppBar, Typography, Toolbar } from '@material-ui/core';
+import { withTheme, withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 
 import { withFirebase } from '../Firebase';
-
 import EventDetails from '../EventDetails';
+import styles from '../Common';
 
 import * as ROUTES from '../../constants/routes';
 
-import './index.css';
+const Event = props => {
+  const [loading, setLoading] = useState(true);
+  const [event, setEvent] = useState(null);
 
-class EventBase extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { loading: true };
-  }
-
-  componentDidMount() {
-    if (this.props.match.params.eventKey) {
-      this.props.firebase.loadEventDetails(this.props.match.params.eventKey).then(eventDoc => {
+  useEffect(() => {
+    if (props.match.params.eventKey) {
+      props.firebase.loadEventDetails(props.match.params.eventKey).then(eventDoc => {
         console.log(eventDoc);
-        this.setState({ loading: false, event: eventDoc.docs[0].data() });
+        setLoading(false);
+        if (eventDoc.docs.length > 0) {
+          setEvent(eventDoc.docs[0].data());
+        } else {
+          setEvent(null);
+        }
       });
     }
-  }
+  }, []);
 
-  render() {
-    if (this.state.loading) {
-      return (
-        <div>
-          <span>Loading events...</span>
-        </div>
-      );
-    } else {
-      if (this.state.event) {
-        console.log('Single Event: %s', this.state.event.key);
-        console.log(this.props.location);
-        return (
-          <div>
-            <h1>{this.state.event.title}</h1>
-            <EventDetails event={this.state.event} />
-            <div className="formLink">
-              <Link to={{ pathname: ROUTES.PERMISSION_FORM.replace(':eventKey', this.state.event.key) }}>Register</Link>
-            </div>
+  const { classes, theme } = props;
+
+  console.log(props.location);
+  return (
+    <React.Fragment>
+      <CssBaseline />
+      <AppBar position="absolute" color="default" className={classes.appBar}>
+        <Toolbar>
+          <Typography variant="h6" color="inherit" noWrap>
+            {event ? event.title : loading ? 'Loading...' : 'Event not found!'}
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      {event && (
+        <React.Fragment>
+          <EventDetails event={event} />
+          <div className="formLink">
+            <Link
+              to={{
+                pathname: ROUTES.REGISTRATION.replace(':eventKey', event.key),
+                state: { event: event }
+              }}
+            >
+              Register
+            </Link>
           </div>
-        );
-      } else if (!this.props.match.params.eventKey) {
-        console.log('All Events');
-        return <Redirect to={ROUTES.EVENTS} />;
-      }
-    }
-  }
-}
+        </React.Fragment>
+      )}
+    </React.Fragment>
+  );
+};
 
-const Event = withFirebase(EventBase);
+Event.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
-export default Event;
+export default withTheme()(withFirebase(withStyles(styles)(Event)));

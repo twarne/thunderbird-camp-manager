@@ -9,7 +9,7 @@ export const PARENTS = '/parents';
 
 export const EVENTS = '/events';
 export const EVENT_WITH_KEY = '/event/:eventKey';
-export const PERMISSION_FORM = '/event/:eventKey/permission_form';
-export const RELEASE_FORM = '/event/:eventKey/release_form';
 
 export const SUCCESS = '/success';
+
+export const REGISTRATION = '/event/:eventKey/registration';

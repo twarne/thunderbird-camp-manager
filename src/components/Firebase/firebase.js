@@ -1,4 +1,5 @@
 import app from 'firebase/app';
+import { firestore } from 'firebase';
 import 'firebase/auth';
 import 'firebase/firestore';
 
@@ -99,7 +100,12 @@ class Firebase {
 
   storeParticipant = participant => this.store.collection('participants').add(participant);
 
-  storePermissionForm = permissionForm => this.store.collection('permissionForms').add(permissionForm);
+  storePermissionForm = permissionForm => {
+    if (!permissionForm.timeUpdated) {
+      permissionForm.timeUpdated = firestore.Timestamp.now();
+    }
+    return this.store.collection('permissionForms').add(permissionForm);
+  };
 
   storeReleaseForm = releaseForm => this.store.collection('releaseForms').add(releaseForm);
 }

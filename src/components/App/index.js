@@ -17,18 +17,23 @@ import Title from '../Title';
 import Events from '../Events';
 import Event from '../Event';
 import Success from '../Success';
+import Registration from '../Registration';
 
 import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
 
-const App = () => (
+const App = props => (
   <Router>
     <div>
-      <div className="AppHeader">
-        <Title />
-        <Navigation />
-      </div>
-      <hr />
+      {props.authUser && (
+        <React.Fragment>
+          <div className="AppHeader">
+            <Title />
+            <Navigation />
+          </div>
+          <hr />
+        </React.Fragment>
+      )}
       <div className="AppRoutes">
         <Switch>
           <Route exact path={ROUTES.LANDING} component={LandingPage} />
@@ -38,8 +43,7 @@ const App = () => (
           <Route exact path={ROUTES.ADMIN} component={AdminPage} />
           <Route exact path={ROUTES.PARENTS} component={ParentsPage} />
           <Route exact path={ROUTES.LEADERS} component={LeadersPage} />
-          <Route path={ROUTES.PERMISSION_FORM} component={PermissionForm} />
-          <Route path={ROUTES.RELEASE_FORM} component={ReleaseForm} />
+          <Route path={ROUTES.REGISTRATION} component={Registration} />
           <Route exact path={ROUTES.EVENTS} component={Events} />
           <Route path={ROUTES.EVENT_WITH_KEY} component={Event} />
           <Route path={ROUTES.SUCCESS} component={Success} />

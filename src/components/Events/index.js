@@ -60,7 +60,7 @@ class EventsBase extends React.Component {
             <h1>{this.state.event.title}</h1>
             <EventDetails event={this.state.event} />
             <div className="formLink">
-              <Link to={{ pathname: ROUTES.PERMISSION_FORM }}>Register</Link>
+              <Link to={{ pathname: ROUTES.REGISTRATION }}>Register</Link>
             </div>
           </div>
         );

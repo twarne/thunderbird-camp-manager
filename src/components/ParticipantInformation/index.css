@@ -1,3 +1,0 @@
-.ShirtSizes__control {
-  font-size: calc(10px + (18 - 10) * ((100vw - 300px) / (1000 - 300)));
-}

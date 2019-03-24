@@ -1,18 +1,9 @@
-html {
-  font-size: calc(10px + (18 - 10) * ((100vw - 300px) / (1000 - 300)));
-}
-
-input {
-  font-size: calc(10px + (18 - 10) * ((100vw - 300px) / (1000 - 300)));
-}
-
 .AppRoutes {
   text-align: center;
   align-content: center;
   display: flex;
   flex-direction: column;
   margin: auto;
-  width: 60%;
 }
 
 .App-logo {

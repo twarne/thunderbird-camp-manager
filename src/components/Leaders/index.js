@@ -1,107 +1,111 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import StyledSelect from '../StyledSelect';
+import MUIDataTable from 'mui-datatables';
 
 import * as ROLES from '../../constants/roles';
+import * as DATA from '../../constants/data';
+
 import { withAuthorization } from '../Session';
+import { Typography, Grid, TextField, MenuItem } from '@material-ui/core';
 
-class LeadersPage extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { loading: true, participants: {} };
-
-    this.handleSelectEvent = this.handleSelectEvent.bind(this);
+const columns = [
+  {
+    name: 'name',
+    label: 'Name',
+    options: {
+      filter: true,
+      sort: true
+    }
+  },
+  {
+    name: 'ward',
+    label: 'Ward',
+    options: {
+      filter: true,
+      sort: true
+    }
+  },
+  {
+    name: 'shirtSize',
+    label: 'T-Shirt Size',
+    options: {
+      filter: true
+    }
   }
+];
 
-  handleSelectEvent(event) {
-    console.log('Selected event key: ' + selectedEventKey);
-    const selectedEventKey = event.target.value;
-    this.props.firebase.loadPermissionFormsForEvent(selectedEventKey).then(permissionFormsDoc => {
+const LeadersPage = props => {
+  const [loading, setLoading] = useState(true);
+  const [permissionForms, setPermissionForms] = useState({});
+  const [events, setEvents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [selectedEventKey, setSelectedEventKey] = useState('');
+
+  useEffect(() => {
+    console.log('Loading participants for %s', selectedEventKey);
+    props.firebase.loadPermissionFormsForEvent(selectedEventKey).then(permissionFormsDoc => {
       const permissionForms = permissionFormsDoc.docs.map(formDoc => formDoc.data());
       console.log('Permission forms');
       console.log(permissionForms);
-      this.setState({ permissionForms: permissionForms, selectedEvent: event.target.value });
-      this.loadParticipants();
+      setPermissionForms(permissionForms);
     });
-  }
+  }, [selectedEvent]);
 
-  loadParticipants() {
-    console.log('Loading participants');
-    this.state.permissionForms.forEach(form => {
-      form.participantRef.get().then(participantDoc => {
-        const participants = this.state.participants;
-        participants[form.participantRef.path] = participantDoc.data();
-        this.setState({ participants });
-      });
-    });
-  }
+  const handleSelectEvent = event => {
+    const selectedEventKey = event.target.value;
+    console.log('Selected event key: ' + selectedEventKey);
+    setSelectedEvent(event.target.value);
+  };
 
-  componentDidMount() {
-    this.props.firebase.loadEvents().then(eventsDoc => {
+  useEffect(() => {
+    props.firebase.loadEvents().then(eventsDoc => {
       console.log(eventsDoc);
       const events = eventsDoc.docs.map(eventDoc => {
         const event = eventDoc.data();
-        return { value: eventDoc.ref, label: event.title };
+        console.log('Ref: %s', eventDoc.ref);
+        console.log(event);
+        return { value: eventDoc.ref.path, label: event.title, key: eventDoc.ref.path };
       });
-      this.setState({ loading: false, events: events });
+      setLoading(false);
+      setEvents(events);
     });
-  }
+  }, []);
 
-  render() {
-    return (
-      <div>
-        <h1>Leaders</h1>
-        <StyledSelect
-          id="eventSelect"
-          name="selectedEvent"
-          value={this.state.selectedEvent}
-          title="Select Event"
-          placeholder="Event"
-          onChange={this.handleSelectEvent}
-          inputWidth="20"
-          options={this.state.events}
-        />
-        {this.state.selectedEvent && (
-          <div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Participant Name</th>
-                  <th>Ward</th>
-                  <th>Shirt Size</th>
-                  <th>Permission Form</th>
-                  <th>Release Form</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.permissionForms.map(form => {
-                  console.log('Permission form: ');
-                  console.log(form);
-                  const participant = this.state.participants[form.participantRef.path];
-                  console.log(participant);
-                  if (participant) {
-                    return (
-                      <tr key={form.participantRef.path}>
-                        <td>{participant.participant.name}</td>
-                        <td>{participant.participant.ward}</td>
-                        <td>{participant.participant.shirtSize}</td>
-                        <td>Permission Form</td>
-                        <td>Release Form</td>
-                      </tr>
-                    );
-                  } else {
-                    return;
-                  }
-                })}
-              </tbody>
-            </table>
-          </div>
+  return (
+    <React.Fragment>
+      <Grid container spacing={24}>
+        <Grid item xs={12}>
+          <Typography variant="h3" gutterBottom>
+            Leaders
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          {events && (
+            <TextField
+              id="event"
+              select
+              value={selectedEventKey}
+              onChange={handleSelectEvent}
+              helperText="Select event"
+            >
+              {events.map(item => (
+                <MenuItem key={item.key} value={item.value}>
+                  {item.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          )}
+        </Grid>
+
+        {selectedEvent && (
+          <Grid item xs={12}>
+            <MUIDataTable title="Participants" columns={columns} data={permissionForms} />
+          </Grid>
         )}
-      </div>
-    );
-  }
-}
+      </Grid>
+    </React.Fragment>
+  );
+};
 
 const authorizationCondition = authUser =>
   authUser &&
