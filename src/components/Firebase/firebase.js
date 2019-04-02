@@ -3,6 +3,8 @@ import { firestore } from 'firebase';
 import 'firebase/auth';
 import 'firebase/firestore';
 
+import * as ROLES from '../../constants/roles';
+
 const prodConfig = {
   apiKey: process.env.REACT_APP_PROD_API_KEY,
   authDomain: process.env.REACT_APP_PROD_AUTH_DOMAIN,
@@ -30,9 +32,12 @@ class Firebase {
     this.auth = app.auth();
     this.store = app.firestore();
     this.googleProvider = new app.auth.GoogleAuthProvider();
+    this.fbProvider = new app.auth.FacebookAuthProvider();
   }
 
   doSignInWithGoogle = () => this.auth.signInWithPopup(this.googleProvider);
+
+  doSignInWithFB = () => this.auth.signInWithPopup(this.fbProvider);
 
   doSignOut = () => this.auth.signOut();
 
@@ -57,6 +62,8 @@ class Firebase {
   onAuthUserListener = (next, fallback) =>
     this.auth.onAuthStateChanged(authUser => {
       if (authUser) {
+        console.log('Authenticated user');
+        console.log(authUser.uid);
         this.user(authUser.uid).then(dbUserDoc => {
           if (dbUserDoc) {
             const dbUser = dbUserDoc.data();
@@ -92,11 +99,16 @@ class Firebase {
 
   loadEvents = () => this.store.collection('events').get();
 
-  loadPermissionFormsForEvent = eventRef =>
-    this.store
-      .collection('permissionForms')
-      .where('eventRef', '==', eventRef)
-      .get();
+  loadPermissionFormsForEvent = (eventRef, user, next, error) => {
+    console.log('Loading permission forms: %s', eventRef);
+    const permissionFormsCollection = this.store.collection('permissionForms');
+    console.log(permissionFormsCollection);
+    let permissionFormsQuery = permissionFormsCollection.where('eventRef', '==', eventRef);
+    if (user.roles.includes(ROLES.WARD_LEADER)) {
+      permissionFormsQuery = permissionFormsQuery.where('participant.ward', '==', user.ward);
+    }
+    return permissionFormsQuery.get();
+  };
 
   storeParticipant = participant => this.store.collection('participants').add(participant);
 
@@ -108,6 +120,11 @@ class Firebase {
   };
 
   storeReleaseForm = releaseForm => this.store.collection('releaseForms').add(releaseForm);
+
+  updatePermissionForm = (refPath, permissionForm) => {
+    permissionForm.timeUpdated = firestore.Timestamp.now();
+    return this.store.doc(refPath).set(permissionForm);
+  };
 }
 
 export default Firebase;

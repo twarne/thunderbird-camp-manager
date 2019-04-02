@@ -42,6 +42,21 @@ const styles = theme => ({
   canvas: {
     border: 2,
     borderStyle: 'inset'
+  },
+  grow: {
+    flexGrow: 1
+  },
+  fbLogin: {
+    ...theme.typography.button,
+    backgroundColor: '#4267B2',
+    color: '#ffffff'
+  },
+  fbLogo: {
+    width: theme.spacing.unit * 5,
+    height: 'auto'
+  },
+  fbText: {
+    verticalAlign: 'center'
   }
 });
 

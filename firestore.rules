@@ -1,5 +1,50 @@
 service cloud.firestore {
   match /databases/{database}/documents {
+    function getRoles(userId) {
+      return get(/databases/$(database)/documents/users/$(userId)).data.roles;
+    }
+
+    function getWard(userId) {
+      return get(/databases/$(database)/documents/users/$(userId)).data.ward;
+    }
+
+    function getEvents(userId) {
+      return get(/databases/$(database)/documents/users/$(userId)).data.events;
+    }
+
+    function hasRole(userId, role) {
+      return role in getRoles(userId);
+    }
+
+    function isAdmin(userId) {
+      return hasRole(userId, 'admin');
+    }
+
+    function isStake(userId) {
+      return hasRole(userId, 'stake');
+    }
+
+    function isWard(userId) {
+      return hasRole(userId, 'ward');
+    }
+
+    function isGeneralLeader(userId) {
+      return (isStake(userId) || isWard(userId)) && hasRole(userId, 'general');
+    }
+
+    function isEventLeader(userId, event) {
+      return (isStake(userId) || isWard(userId)) && hasRole(userId, 'general') && event in getEvents(userId);
+    }
+
+    function isLeader(userId, event) {
+      return userId != null
+         && isAdmin(userId)
+         || isStake(userId)
+            && (isGeneralLeader(userId) || isEventLeader(userId, event))
+         || isWard(userId)
+            && (isGeneralLeader(userId) || isEventLeader(userId, event));
+    }
+
     match /users/{userId} {
       allow read, update, delete: if request.auth.uid == userId;
       allow create: if request.auth.uid != null;
@@ -14,16 +59,11 @@ service cloud.firestore {
       allow write: if true;
     }
     match /permissionForms/{permissionForm} {
-      allow read: if request.auth.uid != null
+      allow read: if isLeader(request.auth.uid, resource.data.eventRef);
     }
     match /permissionForms/{permissionForm} {
-      allow write: if true;
-    }
-    match /releaseForms/{releaseForm} {
-      allow read: if request.auth.uid != null
-    }
-    match /releaseForms/{releaseForm} {
-      allow write: if true;
+      allow create: if true;
+      allow update, delete: if isLeader(request.auth.uid, resource.data.eventRef);
     }
     match /{document=**} {
       allow read, write: if false;
