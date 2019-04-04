@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "thunderbird-camp-manager"
+    "default": "thunderbird-camp-manager",
+    "staging": "thunderbird-camp-manager-test"
   }
 }

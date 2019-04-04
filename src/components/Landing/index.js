@@ -1,5 +1,4 @@
-import React from 'react';
-import { withAuthorization } from '../Session';
+import React, { useEffect, useState } from 'react';
 import NavHeader from '../NavHeader';
 import { Grid, Link, withStyles, Paper } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
@@ -7,9 +6,23 @@ import { Link as RouterLink } from 'react-router-dom';
 import styles from '../Common';
 
 import * as Routes from '../../constants/routes';
+import { withFirebase } from '../Firebase';
 
 const LandingPage = props => {
-  const { authUser, classes } = props;
+  const [authUser, setAuthUser] = useState(null);
+
+  const { classes } = props;
+
+  useEffect(() => {
+    return props.firebase.onAuthUserListener(
+      authUser => {
+        setAuthUser(authUser);
+      },
+      () => {
+        setAuthUser(null);
+      }
+    );
+  }, []);
 
   return (
     <React.Fragment>
@@ -36,4 +49,4 @@ const LandingPage = props => {
   );
 };
 
-export default withAuthorization(authUser => true)(withStyles(styles)(LandingPage));
+export default withFirebase(withStyles(styles)(LandingPage));
