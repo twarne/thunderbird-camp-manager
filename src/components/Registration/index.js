@@ -23,6 +23,7 @@ import PermissionForm from '../PermissionForm';
 
 import * as STRINGS from '../../constants/strings';
 import styles from '../Common';
+import NavHeader from '../NavHeader';
 
 const steps = [
   'Participant Information',
@@ -219,14 +220,7 @@ const Registration = props => {
 
   return (
     <React.Fragment>
-      <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            {event ? event.title : 'Loading...'}
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <NavHeader title={event ? `${event.title} Registration` : 'Loading...'} />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">

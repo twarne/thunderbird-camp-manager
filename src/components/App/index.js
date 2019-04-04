@@ -1,9 +1,10 @@
 import React from 'react';
 import './index.css';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Event from '../Event';
 import Home from '../Home';
+import Landing from '../Landing';
 import Leaders from '../Leaders';
 import Registration from '../Registration';
 import SignIn from '../SignIn';
@@ -22,6 +23,7 @@ const App = props => (
         <Route path={ROUTES.LEADERS} component={Leaders} />
         <Route path={ROUTES.SIGN_IN} component={SignIn} />
         <Route path={ROUTES.SIGN_OUT} component={SignOut} />
+        <Route exact path={ROUTES.LANDING} component={Landing} />
       </Switch>
     </div>
   </Router>

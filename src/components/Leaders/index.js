@@ -27,6 +27,7 @@ import {
   withStyles
 } from '@material-ui/core';
 import moment from 'moment';
+import NavHeader from '../NavHeader';
 
 const LeadersPage = props => {
   const [loading, setLoading] = useState(true);
@@ -321,17 +322,7 @@ const LeadersPage = props => {
 
   return (
     <React.Fragment>
-      <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap className={classes.grow}>
-            {event ? event.title : 'Loading...'} - Leaders
-          </Typography>
-          <Button onClick={props.firebase.doSignOut} className={classes.button}>
-            Logout
-          </Button>
-        </Toolbar>
-      </AppBar>
+      <NavHeader title={event ? event.title : 'Loading...'} />
       <Grid container spacing={24}>
         {!props.match.params.eventKey && (
           <Grid item xs={12}>

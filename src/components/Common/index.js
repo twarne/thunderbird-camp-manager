@@ -57,6 +57,10 @@ const styles = theme => ({
   },
   fbText: {
     verticalAlign: 'center'
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
   }
 });
 

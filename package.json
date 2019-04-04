@@ -27,7 +27,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "commit": "git-cz"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,6 +40,13 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@firebase/testing": "^0.7.7"
+    "@firebase/testing": "^0.7.7",
+    "commitizen": "^3.0.7",
+    "cz-conventional-changelog": "^2.1.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
