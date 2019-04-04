@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { withAuthorization } from '../Session';
 import styles from '../Common';
 import { CssBaseline, AppBar, Toolbar, Typography, Button, withStyles } from '@material-ui/core';
 
 import * as ROLES from '../../constants/roles';
+import { withFirebase } from '../Firebase';
 
 const NavHeader = props => {
-  const { authUser, classes, title } = props;
+  const [authUser, setAuthUser] = useState(null);
+
+  const { classes, title } = props;
+
+  useEffect(() => {
+    return props.firebase.onAuthUserListener(
+      authUser => {
+        setAuthUser(authUser);
+      },
+      () => {
+        setAuthUser(null);
+      }
+    );
+  }, []);
 
   const isLeader =
     authUser &&
@@ -40,4 +53,4 @@ NavHeader.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withAuthorization(authUser => true)(withStyles(styles)(NavHeader));
+export default withFirebase(withStyles(styles)(NavHeader));
