@@ -1,11 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import SignatureCanvas from 'react-signature-canvas';
-import { FormGroup, Typography, FormLabel, FormControl, Grid, Button } from '@material-ui/core';
+import { FormGroup, FormLabel, FormControl, Grid, Button } from '@material-ui/core';
 import { withTheme } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
-import _ from 'lodash';
 
 const PermissionForm = props => {
   const parentSignatureRef = useRef(null);
@@ -31,11 +30,6 @@ const PermissionForm = props => {
     updatedSignatureData[sigRef.current.props.name] = sigRefData;
     setSignatureData(updatedSignatureData);
     props.onChange(updatedSignatureData);
-
-    props.updateReadyForNext(
-      (!props.includeParent || updatedSignatureData.parentSignature) &&
-        (!props.includeParticipant || updatedSignatureData.participantSignature)
-    );
   };
 
   const clearSignatureBlock = sigRef => event => {
