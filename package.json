@@ -1,6 +1,6 @@
 {
   "name": "thunderbird-camp-manager-test",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.2",
