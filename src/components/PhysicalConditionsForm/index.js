@@ -3,11 +3,8 @@ import { FormGroup, FormControlLabel, Switch, Typography, TextField } from '@mat
 
 const PhysicalConditionsForm = props => {
   const [physicalConditions, setPhysicalConditions] = useState({
-    hasDietaryRestriction: false,
-    hasAllergies: false,
-    isTakingMedication: false,
-    canSelfAdminister: false,
-    allowedOTCs: []
+    hasRecurringIllness: false,
+    hasSurgery: false
   });
 
   useEffect(() => {
@@ -25,8 +22,6 @@ const PhysicalConditionsForm = props => {
     console.log(event);
     const updatedPhysicalConditions = { ...physicalConditions };
     updatedPhysicalConditions[event.target.name] = event.target.value;
-    updatedPhysicalConditions.canSelfAdminister =
-      updatedPhysicalConditions.isTakingMedication && updatedPhysicalConditions.canSelfAdminister;
     updatedPhysicalConditions.recurringIllness = updatedPhysicalConditions.hasRecurringIllness
       ? updatedPhysicalConditions.recurringIllness
       : '';
@@ -74,7 +69,7 @@ const PhysicalConditionsForm = props => {
         <FormControlLabel
           control={
             <Switch
-              checked={physicalConditions.hasSurger ? true : false}
+              checked={physicalConditions.hasSurgery ? true : false}
               onChange={handleSwitchChange('hasSurgery')}
               name="hasSurgery"
               value={physicalConditions.hasSurgery}
