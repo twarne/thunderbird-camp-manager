@@ -100,8 +100,8 @@ const LeadersPage = props => {
       ward: formData.participant.ward,
       shirtSize: formData.participant.shirtSize,
       hasAllergies: formData.medicalInformation.hasAllergies,
-      hasDietaryRestrictions: formData.medicalInformation.hasDietaryRestrictions,
-      hasPhysicalRestrictions: formData.physicalConditions.hasPhysicalRestrictions,
+      hasDietaryRestriction: formData.medicalInformation.hasDietaryRestriction,
+      hasPhysicalRestrictions: formData.physicalConditions.restrictions ? true : false,
       paid: formData.paid ? true : false,
       refPath: formDoc.ref.path,
       fullData: formData
@@ -164,9 +164,6 @@ const LeadersPage = props => {
   };
 
   const renderBooleanCell = (value, tableMeta, updateValue) => {
-    console.log('Rendering boolean cell');
-    console.log(tableMeta);
-    console.log(permissionForms);
     return (
       <React.Fragment>
         <Checkbox disabled={true} checked={value ? true : false} value={value ? 'Yes' : 'No'} />
@@ -216,7 +213,7 @@ const LeadersPage = props => {
       }
     },
     {
-      name: 'hasDietaryRestrictions',
+      name: 'hasDietaryRestriction',
       label: 'Dietary Restrictions',
       options: {
         filter: true,
