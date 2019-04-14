@@ -28,13 +28,13 @@ const ParticipantDetails = props => {
         <Grid item xs={6}>
           <Typography variant="caption">Dietary Restrictions</Typography>
           <Typography variant="body1">
-            {form.hasDietaryRestrictions ? form.fullData.medicalInformation.dietaryRestrictions : 'None'}
+            {form.hasDietaryRestriction ? form.fullData.medicalInformation.dietaryRestriction : 'None'}
           </Typography>
         </Grid>
         <Grid item xs={6}>
           <Typography variant="caption">Physical Restrictions</Typography>
           <Typography variant="body1">
-            {form.hasPhysicalRestrictions ? form.fullData.physicalConditions.physicalRestrictions : 'None'}
+            {form.hasPhysicalRestrictions ? form.fullData.physicalConditions.restrictions : 'None'}
           </Typography>
         </Grid>
         <Grid item xs={6}>

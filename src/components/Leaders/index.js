@@ -10,6 +10,7 @@ import * as DATA from '../../constants/data';
 import { withAuthorization } from '../Session';
 
 import styles from '../Common';
+import ReportSelector from '../Reports';
 
 import {
   Typography,
@@ -96,12 +97,12 @@ const LeadersPage = props => {
     const formData = formDoc.data();
     const summaryData = {
       name: formData.participant.name,
-      age: formData.participant.age || calculateAge(formData.participant.dateOfBirth),
+      year: moment(formData.participant.dateOfBirth).year(),
       ward: formData.participant.ward,
       shirtSize: formData.participant.shirtSize,
       hasAllergies: formData.medicalInformation.hasAllergies,
-      hasDietaryRestrictions: formData.medicalInformation.hasDietaryRestrictions,
-      hasPhysicalRestrictions: formData.physicalConditions.hasPhysicalRestrictions,
+      hasDietaryRestriction: formData.medicalInformation.hasDietaryRestriction,
+      hasPhysicalRestrictions: formData.physicalConditions.restrictions ? true : false,
       paid: formData.paid ? true : false,
       refPath: formDoc.ref.path,
       fullData: formData
@@ -114,7 +115,17 @@ const LeadersPage = props => {
     console.log(event);
     if (event.ref) {
       props.firebase.loadPermissionFormsForEvent(event.ref, props.authUser).then(permissionFormsDoc => {
-        const permissionForms = permissionFormsDoc.docs.map(mapPermissionForm);
+        const permissionForms = permissionFormsDoc.docs.map(mapPermissionForm).sort((form1, form2) => {
+          const name1 = form1.name.toUpperCase();
+          const name2 = form2.name.toUpperCase();
+          if (name1 < name2) {
+            return -1;
+          }
+          if (name1 > name2) {
+            return 1;
+          }
+          return 0;
+        });
         console.log('Permission forms');
         console.log(permissionForms);
         setPermissionForms(permissionForms);
@@ -164,9 +175,6 @@ const LeadersPage = props => {
   };
 
   const renderBooleanCell = (value, tableMeta, updateValue) => {
-    console.log('Rendering boolean cell');
-    console.log(tableMeta);
-    console.log(permissionForms);
     return (
       <React.Fragment>
         <Checkbox disabled={true} checked={value ? true : false} value={value ? 'Yes' : 'No'} />
@@ -184,8 +192,8 @@ const LeadersPage = props => {
       }
     },
     {
-      name: 'age',
-      label: 'Age',
+      name: 'year',
+      label: 'Year',
       options: {
         filter: true,
         sort: true
@@ -216,7 +224,7 @@ const LeadersPage = props => {
       }
     },
     {
-      name: 'hasDietaryRestrictions',
+      name: 'hasDietaryRestriction',
       label: 'Dietary Restrictions',
       options: {
         filter: true,
@@ -249,7 +257,7 @@ const LeadersPage = props => {
   console.log('Participants:');
   console.log(permissionForms);
 
-  const { classes } = props;
+  const { classes, authUser } = props;
 
   return (
     <React.Fragment>
@@ -272,6 +280,12 @@ const LeadersPage = props => {
                 ))}
               </TextField>
             )}
+          </Grid>
+        )}
+
+        {permissionForms && (
+          <Grid item xs={12}>
+            <ReportSelector authUser={authUser} event={event} permissionForms={permissionForms} />
           </Grid>
         )}
 
