@@ -26,36 +26,38 @@ const YearsReport = props => {
   return (
     <BaseReport title="Participants by Year" event={event} authUser={authUser}>
       <View style={styles.recordContainer}>
-        {_.entries(byYear).map(entry => {
-          const size = entry[0];
-          const forms = entry[1];
-          return (
-            <View key={entry[0]}>
-              <Text style={styles.groupHeader}>{size}</Text>
-              {forms
-                .sort((form1, form2) => {
-                  const name1 = form1.name.toUpperCase();
-                  const name2 = form2.name.toUpperCase();
-                  if (name1 < name2) {
-                    return -1;
-                  }
-                  if (name1 > name2) {
-                    return 1;
-                  }
-                  return 0;
-                })
-                .map(form => {
-                  return (
-                    <View style={styles.recordView} key={form.refPath} wrap={false}>
-                      <Text style={styles.participantName}>
-                        {form.name} {isStake ? `(${form.fullData.participant.ward})` : ''}
-                      </Text>
-                    </View>
-                  );
-                })}
-            </View>
-          );
-        })}
+        {_.entries(byYear)
+          .filter(entry => entry[0] > 1999)
+          .map(entry => {
+            const year = entry[0];
+            const forms = entry[1];
+            return (
+              <View key={entry[0]}>
+                <Text style={styles.groupHeader}>{year}</Text>
+                {forms
+                  .sort((form1, form2) => {
+                    const name1 = form1.name.toUpperCase();
+                    const name2 = form2.name.toUpperCase();
+                    if (name1 < name2) {
+                      return -1;
+                    }
+                    if (name1 > name2) {
+                      return 1;
+                    }
+                    return 0;
+                  })
+                  .map(form => {
+                    return (
+                      <View style={styles.recordView} key={form.refPath} wrap={false}>
+                        <Text style={styles.participantName}>
+                          {form.name} {isStake ? `(${form.fullData.participant.ward})` : ''}
+                        </Text>
+                      </View>
+                    );
+                  })}
+              </View>
+            );
+          })}
       </View>
     </BaseReport>
   );

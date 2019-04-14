@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
   },
   groupHeader: {
     marginTop: 5,
+    paddingTop: 5,
     borderBottomWidth: 2,
     borderBottomColor: 'black'
   },
