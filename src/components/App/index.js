@@ -7,6 +7,7 @@ import Home from '../Home';
 import Landing from '../Landing';
 import Leaders from '../Leaders';
 import Registration from '../Registration';
+import Reports from '../Reports';
 import SignIn from '../SignIn';
 import SignOut from '../SignOut';
 
