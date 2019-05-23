@@ -5,7 +5,7 @@ import MUIDataTable from 'mui-datatables';
 import _ from 'lodash';
 
 import * as ROLES from '../../constants/roles';
-import * as DATA from '../../constants/data';
+import * as ROUTES from '../../constants/routes';
 
 import { withAuthorization } from '../Session';
 
@@ -20,11 +20,7 @@ import {
   Checkbox,
   TableRow,
   TableCell,
-  FormControlLabel,
-  Button,
-  CssBaseline,
-  AppBar,
-  Toolbar,
+  Paper,
   withStyles
 } from '@material-ui/core';
 import moment from 'moment';
@@ -37,12 +33,46 @@ const LeadersPage = props => {
   const [events, setEvents] = useState({});
   const [event, setEvent] = useState({});
   const [selectedEventKey, setSelectedEventKey] = useState(null);
-  const [detailNeedsSave, setDetailNeedsSave] = useState(false);
   const [detailUpdated, setDetailUpdated] = useState(false);
 
   useEffect(() => {
     if (props.match.params.eventKey) {
-      props.firebase.loadEventDetails(props.match.params.eventKey).then(eventDoc => {
+      setSelectedEventKey(props.match.params.eventKey);
+    } else {
+      console.log('Loading all events');
+      props.firebase.loadEvents().then(eventsDoc => {
+        console.log(eventsDoc);
+        const events = eventsDoc.docs
+          .map(eventDoc => {
+            console.log('Ref: %s', eventDoc.ref);
+            console.log(eventDoc);
+            return eventDoc;
+          })
+          .reduce((map, event) => {
+            console.log(event);
+            if (event) {
+              map[event.ref.path] = { eventDoc: event, eventData: event.data() };
+            }
+            return map;
+          }, {});
+        console.log('Loaded events');
+        console.log(events);
+        setLoading(false);
+        setEvents(events);
+      });
+    }
+  }, []);
+
+  const handleSelectEvent = event => {
+    const selectedEventKey = event.target.value;
+    console.log('Selected event key: ' + selectedEventKey);
+    setSelectedEventKey(event.target.value);
+  };
+
+  useEffect(() => {
+    if (selectedEventKey) {
+      console.log('Loading event details for %s', selectedEventKey);
+      props.firebase.loadEventDetails(selectedEventKey).then(eventDoc => {
         console.log(eventDoc);
         setLoading(false);
         if (eventDoc.docs.length > 0) {
@@ -51,40 +81,9 @@ const LeadersPage = props => {
           setEvent(null);
         }
       });
+      props.history.push(ROUTES.LEADERS.replace(':eventKey', selectedEventKey));
     }
-  }, []);
-
-  const loadEvent = () => {
-    props.firebase.loadEvents().then(eventsDoc => {
-      console.log(eventsDoc);
-      const events = eventsDoc.docs
-        .map(eventDoc => {
-          console.log('Ref: %s', eventDoc.ref);
-          console.log(eventDoc);
-          return eventDoc;
-        })
-        .reduce((map, event) => {
-          console.log(event);
-          if (event) {
-            map[event.ref.path] = { eventDoc: event, eventData: event.data() };
-          }
-          return map;
-        }, {});
-      console.log('Loaded events');
-      console.log(events);
-      setLoading(false);
-      setEvents(events);
-      if (events.length > 0) {
-        setSelectedEventKey(events[0].eventDoc.ref.path);
-      }
-    });
-  };
-
-  const handleSelectEvent = event => {
-    const selectedEventKey = event.target.value;
-    console.log('Selected event key: ' + selectedEventKey);
-    setSelectedEventKey(event.target.value);
-  };
+  }, [selectedEventKey]);
 
   const calculateAge = dateOfBirth => {
     const dateOfBirthM = moment(dateOfBirth);
@@ -174,6 +173,9 @@ const LeadersPage = props => {
     renderExpandableRow: renderParticipantDetails
   };
 
+  console.log('Event');
+  console.log(event);
+
   const renderBooleanCell = (value, tableMeta, updateValue) => {
     return (
       <React.Fragment>
@@ -211,7 +213,8 @@ const LeadersPage = props => {
       name: 'shirtSize',
       label: 'T-Shirt Size',
       options: {
-        filter: true
+        filter: true,
+        display: event && event.includeShirtSize ? 'true' : 'excluded'
       }
     },
     {
@@ -220,7 +223,8 @@ const LeadersPage = props => {
       options: {
         filter: true,
         sort: true,
-        customBodyRender: renderBooleanCell
+        customBodyRender: renderBooleanCell,
+        display: event && event.registration && event.registration.medicalInformation ? 'true' : 'excluded'
       }
     },
     {
@@ -229,7 +233,8 @@ const LeadersPage = props => {
       options: {
         filter: true,
         sort: true,
-        customBodyRender: renderBooleanCell
+        customBodyRender: renderBooleanCell,
+        display: event && event.registration && event.registration.medicalInformation ? 'true' : 'excluded'
       }
     },
     {
@@ -238,7 +243,8 @@ const LeadersPage = props => {
       options: {
         filter: true,
         sort: true,
-        customBodyRender: renderBooleanCell
+        customBodyRender: renderBooleanCell,
+        display: event && event.registration && event.registration.physicalConditions ? 'true' : 'excluded'
       }
     },
     {
@@ -259,40 +265,55 @@ const LeadersPage = props => {
 
   const { classes, authUser } = props;
 
+  const hasReports = event && event.reports && event.reports.length > 0;
+
   return (
     <React.Fragment>
       <NavHeader title={event ? event.title : 'Loading...'} />
       <Grid container spacing={24}>
         {!props.match.params.eventKey && (
-          <Grid item xs={12}>
-            {!loading && (
-              <TextField
-                id="event"
-                select
-                value={selectedEventKey || ''}
-                onChange={handleSelectEvent}
-                helperText="Select event"
-              >
-                {Array.from(_.values(events)).map(item => (
-                  <MenuItem key={item.eventDoc.ref.path} value={item.eventDoc.ref.path}>
-                    {item.eventData.title}
-                  </MenuItem>
-                ))}
-              </TextField>
+          <main className={classes.layout}>
+            <Paper className={classes.paper}>
+              <Grid container spacing={24}>
+                <Grid item xs={8}>
+                  <Typography variant="subtitle1">Select Event</Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  {!loading && (
+                    <TextField
+                      id="event"
+                      select
+                      value={selectedEventKey || ''}
+                      onChange={handleSelectEvent}
+                      helperText="Select event"
+                    >
+                      {Array.from(_.values(events)).map(item => (
+                        <MenuItem key={item.eventDoc.ref.path} value={item.eventData.key}>
+                          {item.eventData.title}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  )}
+                </Grid>
+              </Grid>
+            </Paper>
+          </main>
+        )}
+
+        {props.match.params.eventKey && (
+          <React.Fragment>
+            {permissionForms && hasReports && (
+              <Grid item xs={12}>
+                <ReportSelector authUser={authUser} event={event} permissionForms={permissionForms} />
+              </Grid>
             )}
-          </Grid>
-        )}
 
-        {permissionForms && (
-          <Grid item xs={12}>
-            <ReportSelector authUser={authUser} event={event} permissionForms={permissionForms} />
-          </Grid>
-        )}
-
-        {permissionForms && (
-          <Grid item xs={12}>
-            <MUIDataTable title="Participants" columns={columns} data={permissionForms} options={tableOptions} />
-          </Grid>
+            {permissionForms && (
+              <Grid item xs={12}>
+                <MUIDataTable title="Participants" columns={columns} data={permissionForms} options={tableOptions} />
+              </Grid>
+            )}
+          </React.Fragment>
         )}
       </Grid>
     </React.Fragment>

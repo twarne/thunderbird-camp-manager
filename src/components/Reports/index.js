@@ -75,11 +75,12 @@ const ReportsSelector = props => {
                 onChange={handleReportChange}
                 helperText="Please select report"
               >
-                {REPORTS.map(item => (
-                  <MenuItem key={item.key} value={item.value}>
-                    {item.label}
-                  </MenuItem>
-                ))}
+                {event.reports &&
+                  event.reports.map(item => (
+                    <MenuItem key={item.key} value={item.value}>
+                      {item.label}
+                    </MenuItem>
+                  ))}
               </TextField>
             </Grid>
             <Grid item xs={8}>

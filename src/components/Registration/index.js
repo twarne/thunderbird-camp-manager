@@ -1,15 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { withTheme, withStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Paper from '@material-ui/core/Paper';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { Paper, Stepper, Step, StepLabel, Button, Typography } from '@material-ui/core';
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 
 import { withFirebase } from '../Firebase';
@@ -25,35 +17,31 @@ import * as STRINGS from '../../constants/strings';
 import styles from '../Common';
 import NavHeader from '../NavHeader';
 
-const steps = [
-  'Participant Information',
-  'Emergency Contact',
-  'Medical Information',
-  'Physical Conditions',
-  'Other Accomodations',
-  'Permission',
-  'Youth Release',
-  'Parent Release',
-  'Rappelling Release'
-];
+const STEP_LABELS = {
+  participant: 'Participant Information',
+  emergencyContact: 'Emergency Contact',
+  medicalInformation: 'Medical Information',
+  physicalConditions: 'Physical Conditions',
+  otherAccomodations: 'Other Accomodations',
+  permission: 'Permission',
+  youthIPRelease: 'Youth Release',
+  parentIPRelease: 'Parent Release',
+  rappellingRelease: 'Rappelling Release'
+};
 
 const StepContent = props => {
-  const permissionFormRef = useRef(null);
-  const youthIPReleaseRef = useRef(null);
-  const parentIPReleaseRef = useRef(null);
-  const rappellingReleaseRef = useRef(null);
-
   switch (props.step) {
-    case 0:
+    case 'participant':
       return (
         <ParticipantInformationForm
           participant={props.permissionForm.participant}
           onChange={props.onChange('participant')}
           classes={props.classes}
           updateReadyForNext={props.updateReadyForNext}
+          includeShirtSize={props.event && props.event.includeShirtSize}
         />
       );
-    case 1:
+    case 'emergencyContact':
       return (
         <EmergencyContactForm
           emergencyContact={props.permissionForm.emergencyContact}
@@ -62,7 +50,7 @@ const StepContent = props => {
           updateReadyForNext={props.updateReadyForNext}
         />
       );
-    case 2:
+    case 'medicalInformation':
       return (
         <MedicalInformationForm
           medicalInformation={props.permissionForm.medicalInformation}
@@ -71,7 +59,7 @@ const StepContent = props => {
           updateReadyForNext={props.updateReadyForNext}
         />
       );
-    case 3:
+    case 'physicalConditions':
       return (
         <PhysicalConditionsForm
           physicalConditions={props.permissionForm.physicalConditions}
@@ -80,7 +68,7 @@ const StepContent = props => {
           updateReadyForNext={props.updateReadyForNext}
         />
       );
-    case 4:
+    case 'otherAccomodations':
       return (
         <OtherAccomodationsForm
           otherAccomodations={props.permissionForm.otherAccomodations}
@@ -89,55 +77,57 @@ const StepContent = props => {
           updateReadyForNext={props.updateReadyForNext}
         />
       );
-    case 5:
+    case 'permission':
       return (
         <PermissionForm
           key={'permission'}
-          ref={permissionFormRef}
           permissions={props.permissionForm.permission}
           releaseText={STRINGS.PERMISSION}
           includeParticipant={true}
+          participantSigRef={props.permissionParticipantSigRef}
           includeParent={true}
+          parentSigRef={props.permissionParentSigRef}
           onChange={props.onChange('permission')}
           classes={props.classes}
           updateReadyForNext={props.updateReadyForNext}
         />
       );
-    case 6:
+    case 'youthIPRelease':
       return (
         <PermissionForm
           key={'youthIPRelease'}
-          ref={youthIPReleaseRef}
           permissions={props.permissionForm.youthIPRelease}
           releaseText={STRINGS.YOUTH_RELEASE}
           includeParticipant={true}
+          participantSigRef={props.youthIPParticipantSigRef}
           onChange={props.onChange('youthIPRelease')}
           classes={props.classes}
           updateReadyForNext={props.updateReadyForNext}
         />
       );
-    case 7:
+    case 'parentIPRelease':
       return (
         <PermissionForm
           key={'parentIPRelease'}
-          ref={parentIPReleaseRef}
           permissions={props.permissionForm.parentIPRelease}
           releaseText={STRINGS.PARENT_RELEASE}
           includeParent={true}
+          parentSigRef={props.parentIPParentSigRef}
           onChange={props.onChange('parentIPRelease')}
           classes={props.classes}
           updateReadyForNext={props.updateReadyForNext}
         />
       );
-    case 8:
+    case 'rappellingRelease':
       return (
         <PermissionForm
           key={'rappellingRelease'}
-          ref={rappellingReleaseRef}
           permissions={props.permissionForm.rappellingRelease}
           releaseText={STRINGS.RAPPELLING_RELEASE}
           includeParticipant={true}
+          participantSigRef={props.rappellingReleaseParticipantSigRef}
           includeParent={true}
+          parentSigRef={props.rappellingReleaseParentSigRef}
           onChange={props.onChange('rappellingRelease')}
           classes={props.classes}
           updateReadyForNext={props.updateReadyForNext}
@@ -173,6 +163,16 @@ const Registration = props => {
   });
   const [event, setEvent] = useState(null);
   const [readyForNext, setReadyForNext] = useState(false);
+  const [steps, setSteps] = useState(['participant']);
+
+  const permissionParticipantSigRef = useRef(null);
+  const permissionParentSigRef = useRef(null);
+
+  const youthIPParticipantSigRef = useRef(null);
+  const parentIPParentSigRef = useRef(null);
+
+  const rappellingReleaseParticipantSigRef = useRef(null);
+  const rappellingReleaseParentSigRef = useRef(null);
 
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
@@ -213,10 +213,35 @@ const Registration = props => {
     }
   }, []);
 
+  useEffect(() => {
+    let requiredSteps = ['participant'];
+    if (event && event.registration) {
+      if (event.registration.emergencyContact) {
+        requiredSteps.push('emergencyContact');
+      }
+      if (event.registration.medicalInformation) {
+        requiredSteps.push('medicalInformation');
+      }
+      if (event.registration.physicalConditions) {
+        requiredSteps.push('physicalConditions');
+      }
+      if (event.registration.otherAccomodations) {
+        requiredSteps.push('otherAccomodations');
+      }
+      if (event.registration.permissions) {
+        requiredSteps = requiredSteps.concat(event.registration.permissions);
+      }
+    }
+    setSteps(requiredSteps);
+  }, [event]);
+
   console.log('Registration Props');
   console.log(props);
+  console.log(steps);
 
   const { classes, theme } = props;
+
+  const lgMediaQuery = useMediaQuery(theme.breakpoints.up('lg'));
 
   return (
     <React.Fragment>
@@ -227,9 +252,9 @@ const Registration = props => {
             Registration
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
-            {steps.map(label => (
-              <Step key={label}>
-                <StepLabel>{useMediaQuery(theme.breakpoints.up('lg')) && label}</StepLabel>
+            {steps.map(key => (
+              <Step key={key}>
+                <StepLabel>{lgMediaQuery && STEP_LABELS[key]}</StepLabel>
               </Step>
             ))}
           </Stepper>
@@ -246,11 +271,18 @@ const Registration = props => {
             ) : (
               <React.Fragment>
                 <StepContent
-                  step={activeStep}
+                  step={steps[activeStep]}
                   permissionForm={permissionForm}
                   onChange={onChange}
                   classes={classes}
                   updateReadyForNext={updateReadyForNext}
+                  event={event}
+                  permissionParticipantSigRef={permissionParticipantSigRef}
+                  permissionParentSigRef={permissionParentSigRef}
+                  youthIPParticipantSigRef={youthIPParticipantSigRef}
+                  parentIPParentSigRef={parentIPParentSigRef}
+                  rappellingReleaseParticipantSigRef={rappellingReleaseParticipantSigRef}
+                  rappellingReleaseParentSigRef={rappellingReleaseParentSigRef}
                 />
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (

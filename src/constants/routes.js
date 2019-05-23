@@ -5,7 +5,7 @@ export const HOME = '/home';
 export const ACCOUNT = '/account';
 export const ADMIN = '/admin';
 
-export const LEADERS = '/leaders/:eventKey';
+export const LEADERS = '/leaders/:eventKey?';
 export const LEADERS_WITH_EVENT = eventKey => `/leaders/${eventKey}`;
 
 export const PARENTS = '/parents';
