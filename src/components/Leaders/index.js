@@ -39,24 +39,17 @@ const LeadersPage = props => {
     if (props.match.params.eventKey) {
       setSelectedEventKey(props.match.params.eventKey);
     } else {
-      console.log('Loading all events');
       props.firebase.loadEvents().then(eventsDoc => {
-        console.log(eventsDoc);
         const events = eventsDoc.docs
           .map(eventDoc => {
-            console.log('Ref: %s', eventDoc.ref);
-            console.log(eventDoc);
             return eventDoc;
           })
           .reduce((map, event) => {
-            console.log(event);
             if (event) {
               map[event.ref.path] = { eventDoc: event, eventData: event.data() };
             }
             return map;
           }, {});
-        console.log('Loaded events');
-        console.log(events);
         setLoading(false);
         setEvents(events);
       });
@@ -65,15 +58,12 @@ const LeadersPage = props => {
 
   const handleSelectEvent = event => {
     const selectedEventKey = event.target.value;
-    console.log('Selected event key: ' + selectedEventKey);
     setSelectedEventKey(event.target.value);
   };
 
   useEffect(() => {
     if (selectedEventKey) {
-      console.log('Loading event details for %s', selectedEventKey);
       props.firebase.loadEventDetails(selectedEventKey).then(eventDoc => {
-        console.log(eventDoc);
         setLoading(false);
         if (eventDoc.docs.length > 0) {
           setEvent({ ...eventDoc.docs[0].data(), ref: eventDoc.docs[0].ref });
@@ -103,6 +93,12 @@ const LeadersPage = props => {
       hasDietaryRestriction: formData.medicalInformation.hasDietaryRestriction,
       hasPhysicalRestrictions: formData.physicalConditions.restrictions ? true : false,
       paid: formData.paid ? true : false,
+      phoneNumber: formData.participant.phoneNumber,
+      address: {
+        address: formData.participant.address,
+        city: formData.participant.city,
+        state: formData.participant.state
+      },
       refPath: formDoc.ref.path,
       fullData: formData
     };
@@ -110,8 +106,6 @@ const LeadersPage = props => {
   };
 
   useEffect(() => {
-    console.log('Loading participants');
-    console.log(event);
     if (event.ref) {
       props.firebase.loadPermissionFormsForEvent(event.ref, props.authUser).then(permissionFormsDoc => {
         const permissionForms = permissionFormsDoc.docs.map(mapPermissionForm).sort((form1, form2) => {
@@ -125,17 +119,12 @@ const LeadersPage = props => {
           }
           return 0;
         });
-        console.log('Permission forms');
-        console.log(permissionForms);
         setPermissionForms(permissionForms);
       });
     }
   }, [event, detailUpdated]);
 
   const handleCheckboxUpdate = (form, field) => (event, checked) => {
-    console.log('Handling checkbox update');
-    console.log(event);
-    console.log(checked);
     const refPath = form.refPath;
     const updatedForm = { ...form.fullData };
     updatedForm[field] = checked;
@@ -145,8 +134,6 @@ const LeadersPage = props => {
   };
 
   const handleUpdate = (form, field) => event => {
-    console.log('Handling data update');
-    console.log(event);
     const refPath = form.refPath;
     const updatedForm = { ...form.fullData };
     updatedForm[field] = event.target.value;
@@ -154,10 +141,6 @@ const LeadersPage = props => {
   };
 
   const renderParticipantDetails = (rowData, rowMeta) => {
-    console.log('Row data');
-    console.log(rowData);
-    console.log('Row meta');
-    console.log(rowMeta);
     const form = permissionForms[rowMeta.dataIndex];
     return (
       <TableRow>
@@ -173,13 +156,19 @@ const LeadersPage = props => {
     renderExpandableRow: renderParticipantDetails
   };
 
-  console.log('Event');
-  console.log(event);
-
   const renderBooleanCell = (value, tableMeta, updateValue) => {
     return (
       <React.Fragment>
         <Checkbox disabled={true} checked={value ? true : false} value={value ? 'Yes' : 'No'} />
+      </React.Fragment>
+    );
+  };
+
+  const renderAddress = (value, tableMeta, updateValue) => {
+    return (
+      <React.Fragment>
+        <Typography variant="body1">{value.address}</Typography>
+        <Typography variant="body1">{`${value.city}, ${value.state}`}</Typography>
       </React.Fragment>
     );
   };
@@ -255,13 +244,25 @@ const LeadersPage = props => {
         sort: true,
         customBodyRender: renderBooleanCell
       }
+    },
+    {
+      name: 'phoneNumber',
+      label: 'Phone Number',
+      options: {
+        filter: true,
+        display: false
+      }
+    },
+    {
+      name: 'address',
+      label: 'Address',
+      options: {
+        filter: false,
+        display: false,
+        customBodyRender: renderAddress
+      }
     }
   ];
-
-  console.log(props);
-
-  console.log('Participants:');
-  console.log(permissionForms);
 
   const { classes, authUser } = props;
 
