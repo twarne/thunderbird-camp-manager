@@ -77,16 +77,17 @@ const LeadersPage = props => {
 
   const calculateAge = dateOfBirth => {
     const dateOfBirthM = moment(dateOfBirth);
-    const eventDate = moment(event.startDate.toDate());
+    const eventDate = moment(new Date());
     const age = eventDate.diff(dateOfBirthM, 'years');
     return age;
   };
 
   const mapPermissionForm = formDoc => {
     const formData = formDoc.data();
+    const age = calculateAge(formData.participant.dateOfBirth);
     const summaryData = {
       name: formData.participant.name,
-      year: moment(formData.participant.dateOfBirth).year(),
+      year: age <= 18 ? moment(formData.participant.dateOfBirth).year() : '(Not shown)',
       ward: formData.participant.ward,
       shirtSize: formData.participant.shirtSize,
       hasAllergies: formData.medicalInformation.hasAllergies,
@@ -184,7 +185,7 @@ const LeadersPage = props => {
     },
     {
       name: 'year',
-      label: 'Year',
+      label: 'Birth Year',
       options: {
         filter: true,
         sort: true
