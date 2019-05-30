@@ -20,6 +20,17 @@ const ParticipantDetails = props => {
           <Typography variant="body1">{form.fullData.participant.dateOfBirth}</Typography>
         </Grid>
         <Grid item xs={6}>
+          <Typography variant="caption">Phone number</Typography>
+          <Typography variant="body1">{form.fullData.participant.phoneNumber}</Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <Typography variant="caption">Address</Typography>
+          <Typography variant="body1">{form.fullData.participant.address}</Typography>
+          <Typography variant="body1">{`${form.fullData.participant.city}, ${
+            form.fullData.participant.state
+          }`}</Typography>
+        </Grid>
+        <Grid item xs={6}>
           <Typography variant="caption">Allergies</Typography>
           <Typography variant="body1">
             {form.hasAllergies ? form.fullData.medicalInformation.allergies : 'None'}
@@ -58,27 +69,6 @@ const ParticipantDetails = props => {
             label={'Paid?'}
           />
         </Grid>
-        {/** 
-            <Grid item xs={6}>
-              <TextField
-                id="participantNotes"
-                name="participantNotes"
-                label="Notes"
-                fullWidth
-                multiline
-                autoComplete="notes"
-                helperText="Notes"
-                onChange={handleUpdate(form, 'notes')}
-                value={form.fullData.notes || ''}
-                InputLabelProps={{ shrink: form.fullData.notes ? true : false }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <Button onClick={handleSave} disabled={detailNeedsSave}>
-                Save
-              </Button>
-            </Grid>
-            */}
       </Grid>
     </React.Fragment>
   );

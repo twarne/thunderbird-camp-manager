@@ -11,5 +11,6 @@ export const WARDS = [
   { key: 'ward_sv', value: 'Sierra Verde', label: 'Sierra Verde' },
   { key: 'ward_sm', value: 'Sonoran Mountain', label: 'Sonoran Mountain' },
   { key: 'ward_st', value: 'Stetson Valley', label: 'Stetson Valley' },
-  { key: 'ward_th', value: 'Thunderbird Hills', label: 'Thunderbird Hills' }
+  { key: 'ward_th', value: 'Thunderbird Hills', label: 'Thunderbird Hills' },
+  { key: 'ward_no', value: 'None', label: 'None' }
 ];

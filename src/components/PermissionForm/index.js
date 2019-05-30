@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import SignatureCanvas from 'react-signature-canvas';
 import { FormGroup, FormLabel, FormControl, Grid, Button } from '@material-ui/core';
@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 
 const PermissionForm = props => {
-  const parentSignatureRef = useRef(null);
-  const participantSignatureRef = useRef(null);
+  const parentSignatureRef = props.parentSigRef;
+  const participantSignatureRef = props.participantSigRef;
 
   const [signatureData, setSignatureData] = useState({ releaseText: props.releaseText });
 

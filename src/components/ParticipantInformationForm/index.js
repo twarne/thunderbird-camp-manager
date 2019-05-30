@@ -20,7 +20,8 @@ const WARDS = [
   { key: 'ward_sv', value: 'Sierra Verde', label: 'Sierra Verde' },
   { key: 'ward_sm', value: 'Sonoran Mountain', label: 'Sonoran Mountain' },
   { key: 'ward_st', value: 'Stetson Valley', label: 'Stetson Valley' },
-  { key: 'ward_th', value: 'Thunderbird Hills', label: 'Thunderbird Hills' }
+  { key: 'ward_th', value: 'Thunderbird Hills', label: 'Thunderbird Hills' },
+  { key: 'ward_no', value: 'None', label: 'None' }
 ];
 
 const ParticipantInformationForm = props => {
@@ -41,7 +42,7 @@ const ParticipantInformationForm = props => {
         props.participant.address &&
         props.participant.city &&
         props.participant.state &&
-        props.participant.shirtSize &&
+        (props.participant.shirtSize || !props.includeShirtSize) &&
         props.participant.ward
     );
   }, [props.participant]);
@@ -175,22 +176,24 @@ const ParticipantInformationForm = props => {
             InputLabelProps={{ shrink: participant.state }}
           />
         </Grid>
-        <Grid item xs={12} sm={4}>
-          <TextField
-            id="shirtSize"
-            select
-            value={participant.shirtSize}
-            onChange={handleSelectChange('shirtSize')}
-            helperText="Please select your t-shirt size"
-            required
-          >
-            {SHIRT_SIZES.map(item => (
-              <MenuItem key={item.key} value={item.value}>
-                {item.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
+        {props.includeShirtSize && (
+          <Grid item xs={12} sm={4}>
+            <TextField
+              id="shirtSize"
+              select
+              value={participant.shirtSize}
+              onChange={handleSelectChange('shirtSize')}
+              helperText="Please select your t-shirt size"
+              required
+            >
+              {SHIRT_SIZES.map(item => (
+                <MenuItem key={item.key} value={item.value}>
+                  {item.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+        )}
         <Grid item xs={12} sm={8}>
           <TextField
             id="ward"

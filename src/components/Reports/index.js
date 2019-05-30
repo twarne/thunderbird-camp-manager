@@ -9,23 +9,23 @@ import YearsReport from './years';
 
 import styles from '../Common';
 
-const REPORTS = [
-  {
+const REPORTS = {
+  allergies: {
     key: 'allergies',
     label: 'Allergies and Dietary Restrictions',
     value: 'allergies'
   },
-  {
+  tshirts: {
     key: 'tshirts',
     label: 'T-Shirt Sizes',
     value: 'tshirts'
   },
-  {
+  years: {
     key: 'years',
     label: 'Participants by Year',
     value: 'years'
   }
-];
+};
 
 const ReportsSelector = props => {
   const [selectedReport, setSelectedReport] = useState('');
@@ -75,11 +75,12 @@ const ReportsSelector = props => {
                 onChange={handleReportChange}
                 helperText="Please select report"
               >
-                {REPORTS.map(item => (
-                  <MenuItem key={item.key} value={item.value}>
-                    {item.label}
-                  </MenuItem>
-                ))}
+                {event.reports &&
+                  event.reports.map(item => (
+                    <MenuItem key={REPORTS[item].key} value={REPORTS[item].value}>
+                      {REPORTS[item].label}
+                    </MenuItem>
+                  ))}
               </TextField>
             </Grid>
             <Grid item xs={8}>
