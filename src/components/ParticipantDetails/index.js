@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Grid, Typography, FormControlLabel, Checkbox } from '@material-ui/core';
+import moment from 'moment';
 
 import styles from '../Common';
 
 const ParticipantDetails = props => {
   const { classes, form, onPaidChange } = props;
+
+  const dateOfBirthM = moment(form.fullData.participant.dateOfBirth);
+  const age = moment().diff(dateOfBirthM, 'years');
+  const formattedDateOfBirth = age <= 18 ? dateOfBirthM.format('M/D/YYYY') : dateOfBirthM.format('M/D');
 
   return (
     <React.Fragment>
@@ -17,7 +22,7 @@ const ParticipantDetails = props => {
         </Grid>
         <Grid item xs={6}>
           <Typography variant="caption">Birthdate</Typography>
-          <Typography variant="body1">{form.fullData.participant.dateOfBirth}</Typography>
+          <Typography variant="body1">{formattedDateOfBirth}</Typography>
         </Grid>
         <Grid item xs={6}>
           <Typography variant="caption">Phone number</Typography>
