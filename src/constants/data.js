@@ -15,23 +15,23 @@ export const WARDS = [
   { key: 'ward_no', value: 'None', label: 'None' }
 ];
 
-export const OTC_MEDICATIONS = [
-  {
+export const OTC_MEDICATIONS = {
+  acetaminophen: {
     key: 'acetaminophen',
     label: 'Acetaminophen (Tylenol)',
     value: 'Acetaminophen'
   },
-  {
+  ibuprofen: {
     key: 'ibuprofen',
     label: 'Ibuprofen (Advil)',
     value: 'Ibuprofen'
   },
-  { key: 'calcium_carbonate', label: 'Calcium Carbonate (Tums)', value: 'Calcium Carbonate' },
-  {
+  calcium_carbonate: { key: 'calcium_carbonate', label: 'Calcium Carbonate (Tums)', value: 'Calcium Carbonate' },
+  bismuth_subsalicylate: {
     key: 'bismuth_subsalicylate',
     label: 'Bismuth Subsalicylate (Pepto-Bismol)',
     value: 'Bismuth Subsalicylate'
   },
-  { key: 'diphenhydramine', label: 'Diphenhydramine (Benadryl)', value: 'Diphenhydramine' },
-  { key: 'hydrocortisone_cream', label: 'Hydrocortisone cream', value: 'Hydrocortisone cream' }
-];
+  diphenhydramine: { key: 'diphenhydramine', label: 'Diphenhydramine (Benadryl)', value: 'Diphenhydramine' },
+  hydrocortisone_cream: { key: 'hydrocortisone_cream', label: 'Hydrocortisone cream', value: 'Hydrocortisone cream' }
+};
