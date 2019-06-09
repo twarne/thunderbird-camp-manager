@@ -14,6 +14,9 @@ const IndividualsReport = props => {
   const isStake =
     authUser && authUser.roles && (authUser.roles.includes(ROLES.STAKE_LEADER) || authUser.roles.includes(ROLES.ADMIN));
 
+  console.log('OTCs');
+  console.log(OTC_MEDICATIONS);
+
   return (
     <Document>
       {permissionForms
@@ -65,7 +68,10 @@ const IndividualsReport = props => {
                     </Text>
                     <Text style={styles.sectionData}>
                       Allowed OTC Medication:{' '}
-                      {form.allowedOTCs ? form.allowedOTCs.map(otc => OTC_MEDICATIONS[otc].label) : 'None'}
+                      {form.fullData.medicalInformation.allowedOTCs &&
+                      form.fullData.medicalInformation.allowedOTCs.length
+                        ? form.fullData.medicalInformation.allowedOTCs.map(otc => `${OTC_MEDICATIONS[otc].label}; `)
+                        : 'None'}
                     </Text>
                   </View>
                   <View style={styles.section}>
