@@ -6,6 +6,7 @@ import { PDFDownloadLink } from '@react-pdf/renderer';
 import AllergiesReport from './allergies';
 import TShirtReport from './tshirts';
 import YearsReport from './years';
+import IndividualsReport from './individuals';
 
 import styles from '../Common';
 
@@ -24,6 +25,11 @@ const REPORTS = {
     key: 'years',
     label: 'Participants by Year',
     value: 'years'
+  },
+  individuals: {
+    keys: 'individuals',
+    label: 'Individual Forms',
+    value: 'individuals'
   }
 };
 
@@ -46,6 +52,11 @@ const ReportsSelector = props => {
       setGeneratedReport({
         document: <YearsReport permissionForms={permissionForms} event={event} authUser={authUser} />,
         fileName: 'years.pdf'
+      });
+    } else if (selectedReport === 'individuals') {
+      setGeneratedReport({
+        document: <IndividualsReport permissionForms={permissionForms} event={event} authUser={authUser} />,
+        fileName: 'individuals.pdf'
       });
     }
   }, [selectedReport]);

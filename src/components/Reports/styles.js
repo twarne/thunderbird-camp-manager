@@ -65,6 +65,31 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'flex-start'
   },
+  sectionGroup: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'flex-start'
+  },
+  section: {
+    padding: 5,
+    margin: 5,
+    flex: 2,
+    flexDirection: 'column',
+    alignItems: 'flex-start'
+  },
+  sectionTitle: {
+    textDecoration: 'underline',
+    margin: 6,
+    fontSize: 14,
+    textAlign: 'justify',
+    fontFamily: 'Roboto Slab'
+  },
+  sectionData: {
+    margin: '2 2 2 10',
+    fontSize: 12,
+    textAlign: 'justify',
+    fontFamily: 'Roboto'
+  },
   recordView: {
     padding: 5,
     margin: 5,
