@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import SignatureCanvas from 'react-signature-canvas';
 import { FormGroup, FormLabel, FormControl, Grid, Button } from '@material-ui/core';
-import { withTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const PermissionForm = props => {
   const parentSignatureRef = props.parentSigRef;
@@ -18,7 +18,8 @@ const PermissionForm = props => {
 
   console.log('Permission Form Props');
   console.log(props);
-  const { theme, classes } = props;
+  const { classes } = props;
+  const theme = useTheme();
   var signatureBlockBase = (useMediaQuery(theme.breakpoints.down('md')) && 300) || 450;
   console.log('Signature block base: ' + signatureBlockBase);
 
@@ -115,4 +116,4 @@ PermissionForm.propTypes = {
   theme: PropTypes.object.isRequired
 };
 
-export default withTheme()(PermissionForm);
+export default PermissionForm;

@@ -27,7 +27,7 @@ const REPORTS = {
     value: 'years'
   },
   individuals: {
-    keys: 'individuals',
+    key: 'individuals',
     label: 'Individual Forms',
     value: 'individuals'
   }

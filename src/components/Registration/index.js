@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { withTheme, withStyles } from '@material-ui/core/styles';
+import { useTheme, withStyles } from '@material-ui/core/styles';
 import { Paper, Stepper, Step, StepLabel, Button, Typography } from '@material-ui/core';
-import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { withFirebase } from '../Firebase';
 
@@ -239,7 +239,8 @@ const Registration = props => {
   console.log(props);
   console.log(steps);
 
-  const { classes, theme } = props;
+  const { classes } = props;
+  const theme = useTheme();
 
   const lgMediaQuery = useMediaQuery(theme.breakpoints.up('lg'));
 
@@ -313,4 +314,4 @@ Registration.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withTheme()(withFirebase(withStyles(styles)(Registration)));
+export default withFirebase(withStyles(styles)(Registration));

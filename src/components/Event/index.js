@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { CssBaseline, AppBar, Typography, Toolbar } from '@material-ui/core';
-import { withTheme, withStyles } from '@material-ui/core/styles';
+import { useTheme, withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
 import { withFirebase } from '../Firebase';
@@ -28,7 +28,8 @@ const Event = props => {
     }
   }, []);
 
-  const { classes, theme } = props;
+  const { classes } = props;
+  const theme = useTheme();
 
   console.log(props.location);
   return (
@@ -64,4 +65,4 @@ Event.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withTheme()(withFirebase(withStyles(styles)(Event)));
+export default withFirebase(withStyles(styles)(Event));
