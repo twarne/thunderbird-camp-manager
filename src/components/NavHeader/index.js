@@ -38,6 +38,7 @@ const NavHeader = props => {
           <Typography variant="h4" color="inherit" noWrap className={classes.grow}>
             {title ? `Thunderbird Youth - ${title}` : 'Thunderbird Youth'}
           </Typography>
+          {props.children}
           {authUser && (
             <Button onClick={props.firebase.doSignOut} className={classes.button}>
               Logout

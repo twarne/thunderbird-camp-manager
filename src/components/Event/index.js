@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import { withFirebase } from '../Firebase';
 import EventDetails from '../EventDetails';
+import NavHeader from '../NavHeader';
 import styles from '../Common';
 
 import * as ROUTES from '../../constants/routes';
@@ -35,13 +36,7 @@ const Event = props => {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            {event ? event.title : loading ? 'Loading...' : 'Event not found!'}
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <NavHeader title={event ? event.title : loading ? 'Loading...' : 'Event not found!'} />
       {event && (
         <React.Fragment>
           <EventDetails event={event} />
