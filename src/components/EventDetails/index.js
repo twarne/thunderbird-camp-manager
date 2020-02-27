@@ -23,9 +23,15 @@ class EventDetails extends React.Component {
               </span>
               <span className="EventDetails">{this.props.event.description}</span>
               <span className="EventDetails">Stake: {this.props.event.stake}</span>
-              <span className="EventDetails">Leader: {this.props.event.leader.name}</span>
-              <span className="EventDetails">Leader phone number: {this.props.event.leader.phoneNumber}</span>
-              <span className="EventDetails">Leader email: {this.props.event.leader.emailAddress}</span>
+              {this.props.event.leader ? (
+                <React.Fragment>
+                  <span className="EventDetails">Leader: {this.props.event.leader.name}</span>
+                  <span className="EventDetails">Leader phone number: {this.props.event.leader.phoneNumber}</span>
+                  <span className="EventDetails">Leader email: {this.props.event.leader.emailAddress}</span>
+                </React.Fragment>
+              ) : (
+                <React.Fragment />
+              )}
             </div>
           ) : (
             <div className="Section">

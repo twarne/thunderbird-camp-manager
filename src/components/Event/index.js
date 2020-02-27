@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { withFirebase } from '../Firebase';
 import EventDetails from '../EventDetails';
 import NavHeader from '../NavHeader';
+import TrekLanding from '../TrekLanding';
 import styles from '../Common';
 
 import * as ROUTES from '../../constants/routes';
@@ -32,26 +33,28 @@ const Event = props => {
   const { classes } = props;
   const theme = useTheme();
 
-  console.log(props.location);
   return (
     <React.Fragment>
       <CssBaseline />
       <NavHeader title={event ? event.title : loading ? 'Loading...' : 'Event not found!'} />
-      {event && (
-        <React.Fragment>
-          <EventDetails event={event} />
-          <div className="formLink">
-            <Link
-              to={{
-                pathname: ROUTES.REGISTRATION.replace(':eventKey', event.key),
-                state: { event: event }
-              }}
-            >
-              Register
-            </Link>
-          </div>
-        </React.Fragment>
-      )}
+      {event &&
+        (event.key == 'trek2020' ? (
+          <TrekLanding event={event} />
+        ) : (
+          <React.Fragment>
+            <EventDetails event={event} />
+            <div className="formLink">
+              <Link
+                to={{
+                  pathname: ROUTES.REGISTRATION.replace(':eventKey', event.key),
+                  state: { event: event }
+                }}
+              >
+                Register
+              </Link>
+            </div>
+          </React.Fragment>
+        ))}
     </React.Fragment>
   );
 };
