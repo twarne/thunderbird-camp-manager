@@ -1,11 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
-import styles from '../Common';
-import { CssBaseline, AppBar, Toolbar, Typography, Button, withStyles } from '@material-ui/core';
+import styles from "../Common";
+import {
+  CssBaseline,
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  withStyles,
+  Grid
+} from "@material-ui/core";
 
-import * as ROLES from '../../constants/roles';
-import { withFirebase } from '../Firebase';
+import * as ROLES from "../../constants/roles";
+import { withFirebase } from "../Firebase";
 
 const NavHeader = props => {
   const [authUser, setAuthUser] = useState(null);
@@ -33,19 +41,34 @@ const NavHeader = props => {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
+      <AppBar color="default" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h4" color="inherit" noWrap className={classes.grow}>
-            {title ? `Thunderbird Youth - ${title}` : 'Thunderbird Youth'}
-          </Typography>
-          {props.children}
-          {authUser && (
-            <Button onClick={props.firebase.doSignOut} className={classes.button}>
-              Logout
-            </Button>
-          )}
+          <Grid container direction="row">
+            <Grid item xs={3}>
+              <Typography
+                variant="h4"
+                color="inherit"
+                noWrap
+                className={classes.grow}
+              >
+                {title ? title : "Thunderbird Youth"}
+              </Typography>
+            </Grid>
+            {props.children}
+            {authUser && (
+              <Grid item xs={1}>
+                <Button
+                  onClick={props.firebase.doSignOut}
+                  className={classes.button}
+                >
+                  Logout
+                </Button>
+              </Grid>
+            )}
+          </Grid>
         </Toolbar>
       </AppBar>
+      <Toolbar />
     </React.Fragment>
   );
 };
