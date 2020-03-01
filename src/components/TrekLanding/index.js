@@ -50,12 +50,12 @@ const daysUntilTrek = ({ days, hours, minutes, seconds, complete }) => {
   );
 };
 
-const LandingElement = props => {
-  const { sectionTitle, index, landingElementId, img } = props;
+const LandingElement = withStyles(styles)(props => {
+  const { sectionTitle, index, landingElementId, img, classes } = props;
 
   return (
     <React.Fragment>
-      <Grid container item id={landingElementId}>
+      <Grid container item id={landingElementId} className={classes.landingGridSection}>
         {index % 2 === 0 ? (
           <Hidden smUp>
             <Grid container item xs={12}>
@@ -65,7 +65,7 @@ const LandingElement = props => {
         ) : (
           <Grid container item xs={12} sm={6}>
             <Typography variant="h2">{sectionTitle}</Typography>
-            {img && <Img src={img} />}
+            {img && <Img src={img} height="100%" width="100%" />}
           </Grid>
         )}
         <Grid item xs={12} sm={6}>
@@ -84,7 +84,7 @@ const LandingElement = props => {
       </Grid>
     </React.Fragment>
   );
-};
+});
 
 const TrekLanding = props => {
   const { event, classes } = props;
@@ -135,7 +135,13 @@ const TrekLanding = props => {
           >
             <Grid container item xs={12}>
               <Grid item xs={12}>
-                <Typography variant="h4">June 3-6, 2020</Typography>
+                <Typography variant="body1">
+                  Welcome to Thunderbird Park Stake Trek 2020! Trek will be a lasting memory and will help you establish
+                  strong spiritual foundations. Our trek will be held on:
+                </Typography>
+                <Typography variant="h5" align="center">
+                  June 3-6, 2020
+                </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Countdown date={event.startDate.toDate()} renderer={daysUntilTrek} />

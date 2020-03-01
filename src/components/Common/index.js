@@ -65,6 +65,9 @@ const styles = theme => ({
   landingGridRoot: {
     padding: theme.spacing(4)
   },
+  landingGridSection: {
+    padding: `${theme.spacing(4)} 0 ${theme.spacing(4)} 0`
+  },
   landingHeaderLink: {
     color: "white"
   }
