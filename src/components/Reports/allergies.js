@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, View } from '@react-pdf/renderer';
 
-import _ from 'lodash';
 import styles from './styles';
 import BaseReport from './base';
 

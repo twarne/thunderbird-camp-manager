@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 
-import { withAuthorization, withAuthentication } from '../Session';
+import { withAuthorization } from '../Session';
 import styles from '../Common';
 
 import * as ROLES from '../../constants/roles';
@@ -24,9 +24,8 @@ const HomePage = props => {
     if (isAuthorized(authUser)) {
       props.history.push(ROUTES.LEADERS.replace(':eventKey', 'ywcamp2019'));
     }
-  }, []);
+  }, [authUser, props.history]);
 
-  console.log(authUser);
   return (
     <React.Fragment>
       <CssBaseline />

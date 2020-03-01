@@ -12,7 +12,6 @@ import {
   Grid
 } from "@material-ui/core";
 
-import * as ROLES from "../../constants/roles";
 import { withFirebase } from "../Firebase";
 
 const NavHeader = props => {
@@ -29,22 +28,15 @@ const NavHeader = props => {
         setAuthUser(null);
       }
     );
-  }, []);
-
-  const isLeader =
-    authUser &&
-    authUser.roles &&
-    (authUser.roles.includes(ROLES.WARD_LEADER) ||
-      authUser.roles.includes(ROLES.STAKE_LEADER) ||
-      authUser.roles.includes(ROLES.ADMIN));
+  }, [props.firebase]);
 
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar color="default" className={classes.appBar}>
+      <AppBar >
         <Toolbar>
-          <Grid container direction="row">
-            <Grid item xs={3}>
+          <Grid container direction="row" alignItems="center" justify="space-between">
+            <Grid item xs={2}>
               <Typography
                 variant="h4"
                 color="inherit"

@@ -1,10 +1,8 @@
 import React from 'react';
-import { Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
+import { Document, Page, Text, View } from '@react-pdf/renderer';
 
-import _ from 'lodash';
 import FooterSection from './footer';
 import styles from './styles';
-import { withAuthorization } from '../Session';
 
 import * as ROLES from '../../constants/roles';
 
@@ -13,8 +11,6 @@ const BaseReport = props => {
 
   const isStake =
     authUser && authUser.roles && (authUser.roles.includes(ROLES.STAKE_LEADER) || authUser.roles.includes(ROLES.ADMIN));
-
-  const isWard = authUser && authUser.roles && authUser.roles.includes(ROLES.WARD_LEADER);
 
   return (
     <Document>

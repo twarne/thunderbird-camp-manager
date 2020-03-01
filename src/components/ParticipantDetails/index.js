@@ -6,7 +6,7 @@ import moment from 'moment';
 import styles from '../Common';
 
 const ParticipantDetails = props => {
-  const { classes, form, onPaidChange } = props;
+  const { form, onPaidChange } = props;
 
   const dateOfBirthM = moment(form.fullData.participant.dateOfBirth);
   const age = moment().diff(dateOfBirthM, 'years');

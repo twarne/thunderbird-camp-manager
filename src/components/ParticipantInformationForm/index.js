@@ -29,7 +29,7 @@ const ParticipantInformationForm = props => {
 
   useEffect(() => {
     props.updateReadyForNext(false);
-  }, []);
+  }, [props]);
 
   useEffect(() => {
     console.log('Effect: participant');
@@ -45,7 +45,7 @@ const ParticipantInformationForm = props => {
         (props.participant.shirtSize || !props.includeShirtSize) &&
         props.participant.ward
     );
-  }, [props.participant]);
+  }, [props]);
 
   const handleSelectChange = targetName => {
     return event => {

@@ -1,6 +1,6 @@
 const styles = theme => ({
   appBar: {
-    position: 'relative',
+    position: 'fixed',
     [theme.breakpoints.down('sm')]: {
       width: 'auto'
     }
@@ -61,6 +61,12 @@ const styles = theme => ({
   menuButton: {
     marginLeft: -12,
     marginRight: 20
+  },
+  landingGridRoot: {
+    padding: theme.spacing(4)
+  },
+  landingHeaderLink: {
+    color: "white"
   }
 });
 

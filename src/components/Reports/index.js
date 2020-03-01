@@ -34,6 +34,7 @@ const REPORTS = {
 };
 
 const ReportsSelector = props => {
+  const { classes, authUser, permissionForms, event } = props;
   const [selectedReport, setSelectedReport] = useState('');
   const [generatedReport, setGeneratedReport] = useState(null);
 
@@ -59,16 +60,11 @@ const ReportsSelector = props => {
         fileName: 'individuals.pdf'
       });
     }
-  }, [selectedReport]);
+  }, [selectedReport, authUser, event, permissionForms]);
 
   const handleReportChange = event => {
     setSelectedReport(event.target.value);
   };
-
-  const { classes, authUser, permissionForms, event } = props;
-
-  console.log('AuthUser:');
-  console.log(authUser);
 
   return (
     <React.Fragment>

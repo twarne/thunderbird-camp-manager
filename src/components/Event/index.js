@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
-import { CssBaseline, AppBar, Typography, Toolbar } from "@material-ui/core";
-import { useTheme, withStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
+import { CssBaseline } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
 import { withFirebase } from "../Firebase";
@@ -30,15 +30,12 @@ const Event = props => {
           }
         });
     }
-  }, []);
-
-  const { classes } = props;
-  const theme = useTheme();
+  }, [props.firebase, props.match.params.eventKey]);
 
   return (
     <React.Fragment>
       <CssBaseline />
-      {event && event.key == "trek2020" ? (
+      {props.match.params.eventKey === "trek2020" ? (
         <TrekLanding event={event} />
       ) : (
         <React.Fragment>

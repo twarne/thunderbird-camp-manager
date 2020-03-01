@@ -26,7 +26,7 @@ const LandingPage = props => {
         setAuthUser(null);
       }
     );
-  }, []);
+  }, [props.firebase]);
 
   useEffect(() => {
     console.log('Loading all events');
@@ -50,7 +50,7 @@ const LandingPage = props => {
       setLoading(false);
       setEvents(events);
     });
-  }, []);
+  }, [props.firebase]);
 
   return (
     <React.Fragment>

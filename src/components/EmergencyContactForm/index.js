@@ -7,7 +7,7 @@ const EmergencyContactForm = props => {
 
   useEffect(() => {
     props.updateReadyForNext(false);
-  }, []);
+  }, [props]);
 
   const handleEmergencyContactChange = event => {
     const updatedEmergencyContact = { ...emergencyContact };

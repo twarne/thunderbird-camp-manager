@@ -54,10 +54,9 @@ const LeadersPage = props => {
         setEvents(events);
       });
     }
-  }, []);
+  }, [props.firebase, props.match.params.eventKey]);
 
   const handleSelectEvent = event => {
-    const selectedEventKey = event.target.value;
     setSelectedEventKey(event.target.value);
   };
 
@@ -73,7 +72,7 @@ const LeadersPage = props => {
       });
       props.history.push(ROUTES.LEADERS.replace(':eventKey', selectedEventKey));
     }
-  }, [selectedEventKey]);
+  }, [selectedEventKey, props.firebase, props.history]);
 
   const calculateAge = dateOfBirth => {
     const dateOfBirthM = moment(dateOfBirth);
@@ -82,31 +81,30 @@ const LeadersPage = props => {
     return age;
   };
 
-  const mapPermissionForm = formDoc => {
-    const formData = formDoc.data();
-    const age = calculateAge(formData.participant.dateOfBirth);
-    const summaryData = {
-      name: formData.participant.name,
-      year: age <= 18 ? moment(formData.participant.dateOfBirth).year() : '(Not shown)',
-      ward: formData.participant.ward,
-      shirtSize: formData.participant.shirtSize,
-      hasAllergies: formData.medicalInformation.hasAllergies,
-      hasDietaryRestriction: formData.medicalInformation.hasDietaryRestriction,
-      hasPhysicalRestrictions: formData.physicalConditions.restrictions ? true : false,
-      paid: formData.paid ? true : false,
-      phoneNumber: formData.participant.phoneNumber,
-      address: {
-        address: formData.participant.address,
-        city: formData.participant.city,
-        state: formData.participant.state
-      },
-      refPath: formDoc.ref.path,
-      fullData: formData
-    };
-    return summaryData;
-  };
-
   useEffect(() => {
+    const mapPermissionForm = formDoc => {
+      const formData = formDoc.data();
+      const age = calculateAge(formData.participant.dateOfBirth);
+      const summaryData = {
+        name: formData.participant.name,
+        year: age <= 18 ? moment(formData.participant.dateOfBirth).year() : '(Not shown)',
+        ward: formData.participant.ward,
+        shirtSize: formData.participant.shirtSize,
+        hasAllergies: formData.medicalInformation.hasAllergies,
+        hasDietaryRestriction: formData.medicalInformation.hasDietaryRestriction,
+        hasPhysicalRestrictions: formData.physicalConditions.restrictions ? true : false,
+        paid: formData.paid ? true : false,
+        phoneNumber: formData.participant.phoneNumber,
+        address: {
+          address: formData.participant.address,
+          city: formData.participant.city,
+          state: formData.participant.state
+        },
+        refPath: formDoc.ref.path,
+        fullData: formData
+      };
+      return summaryData;
+    };
     if (event.ref) {
       props.firebase.loadPermissionFormsForEvent(event.ref, props.authUser).then(permissionFormsDoc => {
         const permissionForms = permissionFormsDoc.docs.map(mapPermissionForm).sort((form1, form2) => {
@@ -123,7 +121,7 @@ const LeadersPage = props => {
         setPermissionForms(permissionForms);
       });
     }
-  }, [event, detailUpdated]);
+  }, [event, detailUpdated, props.firebase, props.authUser]);
 
   const handleCheckboxUpdate = (form, field) => (event, checked) => {
     const refPath = form.refPath;
@@ -132,13 +130,6 @@ const LeadersPage = props => {
     props.firebase.updatePermissionForm(refPath, updatedForm).then(() => {
       setDetailUpdated(true);
     });
-  };
-
-  const handleUpdate = (form, field) => event => {
-    const refPath = form.refPath;
-    const updatedForm = { ...form.fullData };
-    updatedForm[field] = event.target.value;
-    props.firebase.updatePermissionForm(refPath, updatedForm);
   };
 
   const renderParticipantDetails = (rowData, rowMeta) => {

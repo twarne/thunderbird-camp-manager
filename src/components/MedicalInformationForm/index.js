@@ -43,7 +43,7 @@ const MedicalInformationForm = props => {
 
   useEffect(() => {
     props.updateReadyForNext(true);
-  }, []);
+  }, [props]);
 
   useEffect(() => {
     console.log('Effect: medical information');

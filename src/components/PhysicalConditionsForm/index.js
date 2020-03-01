@@ -9,7 +9,7 @@ const PhysicalConditionsForm = props => {
 
   useEffect(() => {
     props.updateReadyForNext(true);
-  }, []);
+  }, [props]);
 
   useEffect(() => {
     console.log('Effect: physical conditions');

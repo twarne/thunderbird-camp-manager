@@ -1,21 +1,13 @@
 import React from 'react';
 import { Document, Text, View, Page } from '@react-pdf/renderer';
 
-import _ from 'lodash';
 import styles from './styles';
 
-import * as ROLES from '../../constants/roles';
 import { OTC_MEDICATIONS } from '../../constants/data';
 import FooterSection from './footer';
 
 const IndividualsReport = props => {
-  const { event, authUser, permissionForms } = props;
-
-  const isStake =
-    authUser && authUser.roles && (authUser.roles.includes(ROLES.STAKE_LEADER) || authUser.roles.includes(ROLES.ADMIN));
-
-  console.log('OTCs');
-  console.log(OTC_MEDICATIONS);
+  const { permissionForms } = props;
 
   return (
     <Document>

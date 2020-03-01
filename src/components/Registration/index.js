@@ -187,10 +187,6 @@ const Registration = props => {
     setActiveStep(activeStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-
   const onChange = form => updatedValue => {
     console.log('Handling event from %s form', form);
     console.log(updatedValue);
@@ -203,15 +199,17 @@ const Registration = props => {
     setReadyForNext(isReadyForNext);
   };
 
+  const onEventRefChange = onChange('eventRef');
+
   useEffect(() => {
     if (props.match.params.eventKey) {
       props.firebase.loadEventDetails(props.match.params.eventKey).then(eventDoc => {
         console.log(eventDoc);
-        onChange('eventRef')(eventDoc.docs[0].ref);
+        onEventRefChange(eventDoc.docs[0].ref);
         setEvent(eventDoc.docs[0].data());
       });
     }
-  }, []);
+  }, [props.firebase, props.match.params.eventKey, onEventRefChange]);
 
   useEffect(() => {
     let requiredSteps = ['participant'];

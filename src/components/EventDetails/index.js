@@ -6,10 +6,6 @@ import '../Common/index.css';
 import './index.css';
 
 class EventDetails extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <AuthUserContext.Consumer>

@@ -14,7 +14,7 @@ const PermissionForm = props => {
 
   useEffect(() => {
     props.updateReadyForNext(true);
-  }, []);
+  }, [props]);
 
   console.log('Permission Form Props');
   console.log(props);
