@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FormGroup, FormControlLabel, Switch, Typography, TextField } from '@material-ui/core';
+import RegistrationFormContext from '../Context';
 
 const PhysicalConditionsForm = props => {
   const [physicalConditions, setPhysicalConditions] = useState({
     hasRecurringIllness: false,
-    hasSurgery: false
+    recurringIllness: '',
+    hasSurgery: false,
+    surgery: '',
+    restrictions: ''
   });
 
-  useEffect(() => {
-    props.updateReadyForNext(true);
-  }, [props]);
+  const registrationFormContext = useContext(RegistrationFormContext);
+  registrationFormContext.updateReadyForNext(true);
 
   useEffect(() => {
     console.log('Effect: physical conditions');
@@ -61,7 +64,7 @@ const PhysicalConditionsForm = props => {
           fullWidth
           autoComplete="recurringIllness"
           onChange={handleChange}
-          value={physicalConditions.recurringIllness || ''}
+          value={physicalConditions.recurringIllness}
           InputLabelProps={{ shrink: physicalConditions.recurringIllness ? true : false }}
         />
       </FormGroup>
@@ -86,7 +89,7 @@ const PhysicalConditionsForm = props => {
           fullWidth
           autoComplete="surgery"
           onChange={handleChange}
-          value={physicalConditions.surgery || ''}
+          value={physicalConditions.surgery}
           InputLabelProps={{ shrink: physicalConditions.surgery ? true : false }}
         />
       </FormGroup>
@@ -100,7 +103,7 @@ const PhysicalConditionsForm = props => {
           autoComplete="restrictions"
           helperText="Identify any other limits, restrictions, or disabilities that could prevent the participant from fully particpating in the event or activity."
           onChange={handleChange}
-          value={physicalConditions.restrictions || ''}
+          value={physicalConditions.restrictions}
           InputLabelProps={{ shrink: physicalConditions.restrictions ? true : false }}
         />
       </FormGroup>

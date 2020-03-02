@@ -9,7 +9,8 @@ import {
   Typography,
   Button,
   withStyles,
-  Grid
+  Grid,
+  Hidden
 } from "@material-ui/core";
 
 import { withFirebase } from "../Firebase";
@@ -33,10 +34,15 @@ const NavHeader = props => {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar >
+      <AppBar>
         <Toolbar>
-          <Grid container direction="row" alignItems="center" justify="space-between">
-            <Grid item xs={2}>
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            justify="space-between"
+          >
+            <Grid item xs={props.children ? 2 : 6}>
               <Typography
                 variant="h4"
                 color="inherit"

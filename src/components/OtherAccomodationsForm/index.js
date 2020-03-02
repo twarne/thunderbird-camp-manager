@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FormGroup, TextField, Typography } from '@material-ui/core';
+import RegistrationFormContext from '../Context';
 
 const OtherAccomodationsForm = props => {
   const [otherAccomodations, setOtherAccomodations] = useState({
-    otherRestrictions: ''
+    otherConsiderations: ''
   });
 
-  useEffect(() => {
-    props.updateReadyForNext(true);
-  }, [props]);
+  const registrationFormContext = useContext(RegistrationFormContext);
+  registrationFormContext.updateReadyForNext(true);
 
   useEffect(() => {
     console.log('Effect: other accomodations');
@@ -40,7 +40,7 @@ const OtherAccomodationsForm = props => {
           autoComplete="otherConsiderations"
           helperText="Identify any other needs or considerations the participant has that the event or activity planner should be aware of."
           onChange={handleChange}
-          value={otherAccomodations.otherConsiderations || ''}
+          value={otherAccomodations.otherConsiderations}
           InputLabelProps={{ shrink: otherAccomodations.otherConsiderations ? true : false }}
         />
       </FormGroup>

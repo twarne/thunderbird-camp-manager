@@ -12,6 +12,7 @@ export const PARENTS = '/parents';
 
 export const EVENTS = '/events';
 export const EVENT_WITH_KEY = '/event/:eventKey';
+export const EVENT = eventKey => `/event/${eventKey}`;
 
 export const SUCCESS = '/success';
 

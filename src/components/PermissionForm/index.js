@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import ReactMarkdown from 'react-markdown';
 import SignatureCanvas from 'react-signature-canvas';
 import { FormGroup, FormLabel, FormControl, Grid, Button } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import RegistrationFormContext from '../Context';
 
 const PermissionForm = props => {
   const parentSignatureRef = props.parentSigRef;
@@ -12,9 +13,8 @@ const PermissionForm = props => {
 
   const [signatureData, setSignatureData] = useState({ releaseText: props.releaseText });
 
-  useEffect(() => {
-    props.updateReadyForNext(true);
-  }, [props]);
+  const registrationFormContext = useContext(RegistrationFormContext);
+  registrationFormContext.updateReadyForNext(true);
 
   console.log('Permission Form Props');
   console.log(props);
@@ -44,7 +44,7 @@ const PermissionForm = props => {
   return (
     <React.Fragment>
       <FormGroup>
-        <Grid container spacing={24}>
+        <Grid container spacing={2}>
           <Grid item xs={12}>
             <ReactMarkdown source={props.releaseText} />
           </Grid>
@@ -110,10 +110,6 @@ const PermissionForm = props => {
       </FormGroup>
     </React.Fragment>
   );
-};
-
-PermissionForm.propTypes = {
-  theme: PropTypes.object.isRequired
 };
 
 export default PermissionForm;

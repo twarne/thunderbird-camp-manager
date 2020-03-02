@@ -1,20 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { Typography, Grid, TextField } from '@material-ui/core';
+import RegistrationFormContext from '../Context';
+import { useEffect } from 'react';
 
 const EmergencyContactForm = props => {
-  const [emergencyContact, setEmergencyContact] = useState({});
+  const [emergencyContact, setEmergencyContact] = useState({
+    name: '',
+    phoneNumber: '',
+    secondaryPhoneNumber: ''
+  });
 
   useEffect(() => {
-    props.updateReadyForNext(false);
-  }, [props]);
+    console.log("Effect: emergency contact");
+    console.log(props.emergencyContact);
+    setEmergencyContact(props.emergencyContact);
+  }, [props.emergencyContact])
+
+  const registrationFormContext = useContext(RegistrationFormContext);
 
   const handleEmergencyContactChange = event => {
     const updatedEmergencyContact = { ...emergencyContact };
     updatedEmergencyContact[event.target.name] = event.target.value;
     props.onChange(updatedEmergencyContact);
     setEmergencyContact(updatedEmergencyContact);
-    props.updateReadyForNext(updatedEmergencyContact.name && updatedEmergencyContact.phoneNumber);
+    registrationFormContext.updateReadyForNext(updatedEmergencyContact.name && updatedEmergencyContact.phoneNumber);
   };
 
   return (
@@ -22,7 +32,7 @@ const EmergencyContactForm = props => {
       <Typography variant="h6" gutterBottom>
         Emergency Contact
       </Typography>
-      <Grid container spacing={24}>
+      <Grid container spacing={2}>
         <Grid item xs={12} sm={8}>
           <TextField
             required
