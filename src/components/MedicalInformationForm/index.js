@@ -61,14 +61,10 @@ const MedicalInformationForm = props => {
   registrationFormContext.updateReadyForNext(true);
 
   useEffect(() => {
-    console.log("Effect: medical information");
-    console.log(props.medicalInformation);
     setMedicalInformation(props.medicalInformation);
   }, [props.medicalInformation]);
 
   const handleChange = event => {
-    console.log("Medical change");
-    console.log(event);
     const updatedMedicalInformation = { ...medicalInformation };
     updatedMedicalInformation[event.target.name] = event.target.value;
     updatedMedicalInformation.canSelfAdminister =
@@ -88,17 +84,10 @@ const MedicalInformationForm = props => {
   };
 
   const handleSwitchChange = switchName => event => {
-    console.log("Medical switch change (%s)", switchName);
-    console.log(event);
     handleChange({ target: { name: switchName, value: event.target.checked } });
   };
 
   const handleMedicationChange = event => {
-    console.log(
-      "handleMedicationChange: %s | %s",
-      event.target.name,
-      event.target.checked
-    );
     let allowedOTCs = [...medicalInformation.allowedOTCs];
     if (event.target.checked) {
       allowedOTCs.push(event.target.name);

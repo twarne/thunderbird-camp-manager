@@ -29,24 +29,17 @@ const LandingPage = props => {
   }, [props.firebase]);
 
   useEffect(() => {
-    console.log('Loading all events');
     props.firebase.loadEvents().then(eventsDoc => {
-      console.log(eventsDoc);
       const events = eventsDoc.docs
         .map(eventDoc => {
-          console.log('Ref: %s', eventDoc.ref);
-          console.log(eventDoc);
           return eventDoc;
         })
         .reduce((map, event) => {
-          console.log(event);
           if (event) {
             map[event.ref.path] = { eventDoc: event, eventData: event.data() };
           }
           return map;
         }, {});
-      console.log('Loaded events');
-      console.log(events);
       setLoading(false);
       setEvents(events);
     });

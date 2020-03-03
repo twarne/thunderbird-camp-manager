@@ -12,8 +12,6 @@ const EmergencyContactForm = props => {
   });
 
   useEffect(() => {
-    console.log("Effect: emergency contact");
-    console.log(props.emergencyContact);
     setEmergencyContact(props.emergencyContact);
   }, [props.emergencyContact])
 

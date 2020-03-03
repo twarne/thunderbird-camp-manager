@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 import {
   Grid,
@@ -11,16 +11,16 @@ import {
   Hidden,
   useMediaQuery,
   useTheme
-} from '@material-ui/core';
-import { Link as RouterLink } from 'react-router-dom';
-import { genericHashLink } from 'react-router-hash-link';
-import Countdown from 'react-countdown';
-import * as Routes from '../../constants/routes';
-import styles from '../Common';
-import NavHeader from '../NavHeader';
-import Img from 'react-image';
+} from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
+import { genericHashLink } from "react-router-hash-link";
+import Countdown from "react-countdown";
+import * as Routes from "../../constants/routes";
+import styles from "../Common";
+import NavHeader from "../NavHeader";
+import Img from "react-image";
 
-import { withFirebase } from '../Firebase';
+import { withFirebase } from "../Firebase";
 
 const daysUntilTrek = ({ days, hours, minutes, seconds, complete }) => {
   return (
@@ -66,11 +66,23 @@ const daysUntilTrek = ({ days, hours, minutes, seconds, complete }) => {
 const LandingElement = withStyles(styles)(props => {
   // img property is used by styles
   // eslint-disable-next-line
-  const { sectionTitle, index, landingElementId, img, titleImg, classes } = props;
+  const {
+    sectionTitle,
+    index,
+    landingElementId,
+    img,
+    titleImg,
+    classes
+  } = props;
 
   return (
     <React.Fragment>
-      <Grid container item id={landingElementId} className={classes.landingGridSection}>
+      <Grid
+        container
+        item
+        id={landingElementId}
+        className={classes.landingGridSection}
+      >
         {index % 2 === 0 ? (
           <Hidden smUp>
             <Grid container item xs={12}>
@@ -119,37 +131,37 @@ const TrekLanding = props => {
   const scrollWithOffset = el => {
     const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
     const yOffset = -80;
-    window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
+    window.scrollTo({ top: yCoordinate + yOffset, behavior: "smooth" });
   };
 
   const links = [
-    { link: 'Home', landingElementId: 'home' },
-    { link: 'Dates to Remember', landingElementId: 'dates_to_remember' },
-    { link: 'What to Pack', landingElementId: 'what_to_pack' },
-    { link: 'What to Wear', landingElementId: 'what_to_wear' },
-    { link: 'Physical Preparation', landingElementId: 'physical_preparation' },
+    { link: "Home", landingElementId: "home" },
+    { link: "Dates to Remember", landingElementId: "dates_to_remember" },
+    { link: "What to Pack", landingElementId: "what_to_pack" },
+    { link: "What to Wear", landingElementId: "what_to_wear" },
+    { link: "Physical Preparation", landingElementId: "physical_preparation" },
     {
-      link: 'Spiritual Preparation',
-      landingElementId: 'spiritual_preparation'
+      link: "Spiritual Preparation",
+      landingElementId: "spiritual_preparation"
     },
-    { link: 'Registration', landingElementId: 'registration' },
-    { link: 'Leaders', landingElementId: 'leaders', authOnly: true }
+    { link: "Registration", landingElementId: "registration" },
+    { link: "Leaders", landingElementId: "leaders", authOnly: true }
   ];
 
   const importantDates = [
-    { title: 'Trek Committee Meeting', date: 'March 8, 2020', leadersOnly: true },
-    { title: 'Stetson Valley Fireside', date: 'March 24, 2020' },
-    { title: 'Arrowhead Ranch and Sierra Verde Fireside', date: 'March 25, 2020' },
-    { title: 'Trek Committee Meeting', date: 'March 29, 2020', leadersOnly: true },
-    { title: 'Mountain Ridge Fireside', date: 'April 1, 2020' },
-    { title: 'Thunderbird Hills Fireside', date: 'April 8, 2020' },
-    { title: 'Sonoran Mountain Fireside', date: 'April 15, 2020' },
-    { title: 'Trek Committee Meeting', date: 'April 19, 2020', leadersOnly: true },
-    { title: 'Ma and Pa Training', date: 'April 17-18, 2020', leadersOnly: true },
-    { title: 'Trek Committee Meeting', date: 'May 17, 2020', leadersOnly: true },
-    { title: 'Equipment Check', date: 'May 30, 2020' },
-    { title: 'Trek', date: 'June 3, 2020' }
-  ];
+    { title: "Trek Committee Meeting", date: "March 8, 2020", leadersOnly:true},
+    { title: "Stetson Valley Fireside", date: "March 24, 2020"},
+    { title: "Arrowhead Ranch and Sierra Verde Fireside", date: "March 25, 2020"},
+    { title: "Trek Committee Meeting", date: "March 29, 2020", leadersOnly:true},
+    { title: "Mountain Ridge Fireside", date: "April 1, 2020"},
+    { title: "Thunderbird Hills Fireside", date: "April 8, 2020"},
+    { title: "Sonoran Mountain Fireside", date: "April 15, 2020"},
+    { title: "Trek Committee Meeting", date: "April 19, 2020", leadersOnly:true},
+    { title: "Ma and Pa Training", date: "April 17-18, 2020", leadersOnly:true},
+    { title: "Trek Committee Meeting", date: "May 17, 2020", leadersOnly:true},
+    { title: "Equipment Check", date: "May 30, 2020"},
+    { title: "Trek", date: "June 3, 2020"},
+  ]
 
   useEffect(() => {
     return props.firebase.onAuthUserListener(
@@ -167,9 +179,8 @@ const TrekLanding = props => {
 
   return (
     <React.Fragment>
-      <NavHeader title={event ? event.title : 'Loading...'}>
-        {showLinks &&
-          links.map(({ link, landingElementId, authOnly }, index) => (
+      <NavHeader title={event ? event.title : "Loading..."}>
+          {showLinks && links.map(({ link, landingElementId, authOnly }, index) => (
             <React.Fragment key={landingElementId}>
               {(!authOnly || authUser) && (
                 <Grid item xs={1}>
@@ -189,25 +200,35 @@ const TrekLanding = props => {
       </NavHeader>
       {event && (
         <Grid container spacing={4} className={classes.landingGridRoot}>
-          <LandingElement sectionTitle="Trek 2020" index={1} landingElementId="home">
+          <LandingElement
+            sectionTitle="Trek 2020"
+            index={1}
+            landingElementId="home"
+          >
             <Grid container item xs={12} className={classes.landingGridContent}>
               <Grid item xs={12}>
                 <Typography variant="body1" paragraph>
-                  Welcome to Thunderbird Park Stake Trek 2020! Trek will be a lasting memory and will help you establish
-                  strong spiritual foundations. Our trek will be held on:
+                  Welcome to Thunderbird Park Stake Trek 2020! Trek will be a
+                  lasting memory and will help you establish strong spiritual
+                  foundations. Our trek will be held on:
                 </Typography>
                 <Typography variant="h4" align="center" paragraph>
                   June 3-6, 2020
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Countdown date={event.startDate.toDate()} renderer={daysUntilTrek} />
+                <Countdown
+                  date={event.startDate.toDate()}
+                  renderer={daysUntilTrek}
+                />
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="body1">
-                  This site lists some of the things you should know and do to prepare for trek. As you prepare with
-                  your quorum or class, with your family, and individually, please listen to the Spirit as he guides you
-                  to get the most out of this experience.
+                  This site lists some of the things you should know and do to
+                  prepare for trek. As you prepare with your quorum or class,
+                  with your family, and individually, please listen to the
+                  Spirit as he guides you to get the most out of this
+                  experience.
                 </Typography>
               </Grid>
             </Grid>
@@ -220,21 +241,24 @@ const TrekLanding = props => {
           >
             <Grid item xs={12} className={classes.landingGridContent}>
               <List className={classes.root}>
-                {importantDates.map(({ title, date, leadersOnly }, index) => (
+                {importantDates.map(({title, date, leadersOnly}, index) => (
                   <React.Fragment key={index}>
-                    {(!leadersOnly || authUser) && (
-                      <ListItem>
-                        <ListItemText primary={title} secondary={date} />
-                      </ListItem>
-                    )}
-                  </React.Fragment>
+                  {(!leadersOnly || authUser) && (<ListItem>
+                    <ListItemText primary={title} secondary={date}/>
+                  </ListItem>)}</React.Fragment>
                 ))}
               </List>
             </Grid>
           </LandingElement>
-          <LandingElement sectionTitle="What to Pack" index={4} landingElementId="what_to_pack">
+          <LandingElement
+            sectionTitle="What to Pack"
+            index={4}
+            landingElementId="what_to_pack"
+          >
             <Grid item xs={12} className={classes.landingGridContent}>
-              <Typography variant="body1">Plan to pack the following items in a 5 gallon bucket:</Typography>
+              <Typography variant="body1">
+                Plan to pack the following items in a 5 gallon bucket:
+              </Typography>
               <List className={classes.listRoot}>
                 <ListItem>
                   <ListItemText primary="Sunscreen" />
@@ -249,7 +273,9 @@ const TrekLanding = props => {
                   <ListItemText primary="Poncho" />
                 </ListItem>
               </List>
-              <Typography variant="body1">Plan to pack the following items in a large plastic bag:</Typography>
+              <Typography variant="body1">
+                Plan to pack the following items in a large plastic bag:
+              </Typography>
               <List className={classes.listRoot}>
                 <ListItem>
                   <ListItemText primary="Sleeping bag" />
@@ -266,7 +292,9 @@ const TrekLanding = props => {
             landingElementId="what_to_wear"
             img="/img/youth-handcart-trek-pioneer-reenactment-342091-tablet.png"
           >
-            <Grid item xs={12} className={classes.landingGridContent}></Grid>
+            <Grid item xs={12} className={classes.landingGridContent}>
+              <Typography variant="body1">Coming soon!</Typography>
+            </Grid>
           </LandingElement>
           <LandingElement
             sectionTitle="Physical Preparation"
@@ -276,8 +304,9 @@ const TrekLanding = props => {
           >
             <Grid item xs={12} className={classes.landingGridContent}>
               <Typography variant="body1" paragraph>
-                Trek is a physically intense experience that includes hiking, camping and other outdoor activities. Your
-                trek experience will be enhanced through physical preparation:
+                Trek is a physically intense experience that includes hiking,
+                camping and other outdoor activities. Your trek experience will
+                be enhanced through physical preparation:
               </Typography>
             </Grid>
           </LandingElement>
@@ -288,28 +317,37 @@ const TrekLanding = props => {
             titleImg="/img/handcart-pioneers-sam-lawlor-275615-tablet.jpg"
           >
             <Typography variant="body1" paragraph>
-              More important than the physical experience of trek is the intense spiritual experience that can accompany
-              both your preparation and participation. The pioneers in Church history left family and friends, homes and
-              possessions to gather with the Saints in Kirtland, Missouri, Nauvoo and finally in the Salt Lake Valley.
-              These pioneers were driven by their faith in the goodness of their Heavenly Father, and the importance of
-              the work which they were undertaking.
+              More important than the physical experience of trek is the intense
+              spiritual experience that can accompany both your preparation and
+              participation. The pioneers in Church history left family and
+              friends, homes and possessions to gather with the Saints in
+              Kirtland, Missouri, Nauvoo and finally in the Salt Lake Valley.
+              These pioneers were driven by their faith in the goodness of their
+              Heavenly Father, and the importance of the work which they were
+              undertaking.
             </Typography>
             <Typography variant="body1" paragraph>
-              In our day, modern pioneers similarly sacrifice to join with the Saints. Each of us has to make the
-              important choice to choose the Savior and His gospel, and to live so that we are worthy of the Spirit and
-              the blessings that the Lord has promised.
+              In our day, modern pioneers similarly sacrifice to join with the
+              Saints. Each of us has to make the important choice to choose the
+              Savior and His gospel, and to live so that we are worthy of the
+              Spirit and the blessings that the Lord has promised.
             </Typography>
             <Typography variant="body1" paragraph>
-              As you prepare for your trek, we encourage you to choose a pioneer, past or present, for whom you can
-              trek. As you learn about the individual you choose, you will feel a kinship and your experience will be
-              strengthened by their experiences. Throughout your preparation and while on trek, you will be asked:
+              As you prepare for your trek, we encourage you to choose a
+              pioneer, past or present, for whom you can trek. As you learn
+              about the individual you choose, you will feel a kinship and your
+              experience will be strengthened by their experiences. Throughout
+              your preparation and while on trek, you will be asked:
             </Typography>
             <Typography variant="h4" align="center" paragraph>
               What is your name?
             </Typography>
             <Typography variant="body1" paragraph>
-              To get started, read about pioneers from the past on the Church's{' '}
-              <a href="https://history.churchofjesuschrist.org/overlandtravel/">Overland Travels</a> site.
+              To get started, read about pioneers from the past on the Church's{" "}
+              <a href="https://history.churchofjesuschrist.org/overlandtravel/">
+                Overland Travels
+              </a>{" "}
+              site.
             </Typography>
           </LandingElement>
           <LandingElement
@@ -320,17 +358,30 @@ const TrekLanding = props => {
           >
             <Grid item xs={12} className={classes.landingGridContent}>
               <Typography variant="body1">
-                All participants will need to complete the registration and permission form.
+                All participants will need to complete the registration and
+                permission form.
               </Typography>
-              <Link component={RouterLink} to={Routes.REGISTRATION_WITH_EVENT(event.key)}>
+              <Link
+                component={RouterLink}
+                to={Routes.REGISTRATION_WITH_EVENT(event.key)}
+              >
                 {event.title} Registration
               </Link>
             </Grid>
           </LandingElement>
           {authUser && (
-            <LandingElement sectionTitle="Leaders" index={8} landingElementId="leaders">
-              <Typography variant="body1">Important links for leaders:</Typography>
-              <Link component={RouterLink} to={Routes.LEADERS_WITH_EVENT(event.key)}>
+            <LandingElement
+              sectionTitle="Leaders"
+              index={8}
+              landingElementId="leaders"
+            >
+              <Typography variant="body1">
+                Important links for leaders:
+              </Typography>
+              <Link
+                component={RouterLink}
+                to={Routes.LEADERS_WITH_EVENT(event.key)}
+              >
                 {event.title} Leaders
               </Link>
             </LandingElement>

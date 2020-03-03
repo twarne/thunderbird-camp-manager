@@ -62,26 +62,31 @@ class Firebase {
   onAuthUserListener = (next, fallback) =>
     this.auth.onAuthStateChanged(authUser => {
       if (authUser) {
-        console.log('Authenticated user');
-        console.log(authUser.uid);
-        this.user(authUser.uid).then(dbUserDoc => {
-          if (dbUserDoc) {
-            const dbUser = dbUserDoc.data();
-            // default empty roles
-            if (!dbUser.roles) {
-              dbUser.roles = [];
+        this.user(authUser.uid).then(
+          dbUserDoc => {
+            if (dbUserDoc) {
+              const dbUser = dbUserDoc.data();
+              // default empty roles
+              if (dbUser && !dbUser.roles) {
+                dbUser.roles = [];
+              }
+
+              // merge auth and db user
+              authUser = {
+                uid: authUser.uid,
+                email: authUser.email,
+                ...dbUser
+              };
+
+              next(authUser);
+            } else {
+              fallback();
             }
-
-            // merge auth and db user
-            authUser = {
-              uid: authUser.uid,
-              email: authUser.email,
-              ...dbUser
-            };
-
-            next(authUser);
+          },
+          () => {
+            fallback();
           }
-        });
+        );
       } else {
         fallback();
       }
@@ -100,9 +105,7 @@ class Firebase {
   loadEvents = () => this.store.collection('events').get();
 
   loadPermissionFormsForEvent = (eventRef, user, next, error) => {
-    console.log('Loading permission forms: %s', eventRef);
     const permissionFormsCollection = this.store.collection('permissionForms');
-    console.log(permissionFormsCollection);
     let permissionFormsQuery = permissionFormsCollection.where('eventRef', '==', eventRef);
     if (user.roles.includes(ROLES.WARD_LEADER)) {
       permissionFormsQuery = permissionFormsQuery.where('participant.ward', '==', user.ward);

@@ -9,8 +9,7 @@ import {
   Typography,
   Button,
   withStyles,
-  Grid,
-  Hidden
+  Grid
 } from "@material-ui/core";
 
 import { withFirebase } from "../Firebase";

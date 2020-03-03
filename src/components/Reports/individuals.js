@@ -25,7 +25,6 @@ const IndividualsReport = props => {
         })
         .map(form => {
           const title = `${form.name} - ${form.fullData.participant.ward}`;
-          console.log(form);
           return (
             <Page size="LETTER" style={styles.body} key={form.refPath}>
               <View style={styles.recordContainer}>

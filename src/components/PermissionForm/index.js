@@ -3,7 +3,6 @@ import ReactMarkdown from 'react-markdown';
 import SignatureCanvas from 'react-signature-canvas';
 import { FormGroup, FormLabel, FormControl, Grid, Button } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import RegistrationFormContext from '../Context';
 
@@ -16,16 +15,11 @@ const PermissionForm = props => {
   const registrationFormContext = useContext(RegistrationFormContext);
   registrationFormContext.updateReadyForNext(true);
 
-  console.log('Permission Form Props');
-  console.log(props);
   const { classes } = props;
   const theme = useTheme();
   var signatureBlockBase = (useMediaQuery(theme.breakpoints.down('md')) && 300) || 450;
-  console.log('Signature block base: ' + signatureBlockBase);
 
   const handleSignatureUpdated = sigRef => () => {
-    console.log('Signature updated (%s)', sigRef.current.props.name);
-    console.log(sigRef.current.getTrimmedCanvas().toDataURL('image/png'));
     const sigRefData = sigRef.current.toDataURL('image/png');
     const updatedSignatureData = { ...signatureData };
     updatedSignatureData[sigRef.current.props.name] = sigRefData;

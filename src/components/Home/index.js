@@ -8,7 +8,7 @@ import styles from '../Common';
 import * as ROLES from '../../constants/roles';
 import * as ROUTES from '../../constants/routes';
 
-import { withStyles, CssBaseline, AppBar, Toolbar, Typography, Grid, Button, Paper } from '@material-ui/core';
+import { withStyles, CssBaseline, Typography, Grid, Paper } from '@material-ui/core';
 import NavHeader from '../NavHeader';
 
 const HomePage = props => {

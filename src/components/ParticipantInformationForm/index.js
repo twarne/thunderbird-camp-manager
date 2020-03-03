@@ -42,15 +42,11 @@ const ParticipantInformationForm = props => {
   const registrationFormContext = useContext(RegistrationFormContext);
 
   useEffect(() => {
-    console.log("Effect: participant");
-    console.log(props.participant);
     setParticipant(props.participant);
   }, [props.participant]);
 
   const handleSelectChange = targetName => {
     return event => {
-      console.log("Select change %s", targetName);
-      console.log(event);
       handleParticipantChange({
         target: { name: targetName, value: event.target.value }
       });
@@ -68,10 +64,7 @@ const ParticipantInformationForm = props => {
   };
 
   const handleParticipantChange = event => {
-    console.log("Handling participant change");
     const updatedParticipant = { ...participant };
-    console.log("Initial value");
-    console.log(updatedParticipant);
     updatedParticipant[event.target.name] = event.target.value;
     if (
       event.target.name === "dateOfBirth" &&
@@ -83,8 +76,6 @@ const ParticipantInformationForm = props => {
       const age = eventDate.diff(dateOfBirth, "years");
       updatedParticipant.age = age;
     }
-    console.log("Updated value");
-    console.log(updatedParticipant);
     props.onChange(updatedParticipant);
     setParticipant(updatedParticipant);
 
@@ -98,14 +89,8 @@ const ParticipantInformationForm = props => {
       (!event.includeShirtSize || updatedParticipant.shirtSize) &&
       updatedParticipant.ward;
 
-    console.log(`Ready for next: ${readyForNext}`);
     registrationFormContext.updateReadyForNext(readyForNext);
   };
-
-  console.log("-------");
-  console.log("Permission form | Participant");
-  console.log(participant);
-  console.log("-------");
 
   return (
     <React.Fragment>

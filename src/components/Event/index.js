@@ -21,7 +21,6 @@ const Event = props => {
       props.firebase
         .loadEventDetails(props.match.params.eventKey)
         .then(eventDoc => {
-          console.log(eventDoc);
           setLoading(false);
           if (eventDoc.docs.length > 0) {
             setEvent(eventDoc.docs[0].data());

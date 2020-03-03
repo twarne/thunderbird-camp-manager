@@ -15,14 +15,10 @@ const PhysicalConditionsForm = props => {
   registrationFormContext.updateReadyForNext(true);
 
   useEffect(() => {
-    console.log('Effect: physical conditions');
-    console.log(props.physicalConditions);
     setPhysicalConditions(props.physicalConditions);
   }, [props.physicalConditions]);
 
   const handleChange = event => {
-    console.log('Physical conditions change');
-    console.log(event);
     const updatedPhysicalConditions = { ...physicalConditions };
     updatedPhysicalConditions[event.target.name] = event.target.value;
     updatedPhysicalConditions.recurringIllness = updatedPhysicalConditions.hasRecurringIllness
@@ -34,8 +30,6 @@ const PhysicalConditionsForm = props => {
   };
 
   const handleSwitchChange = switchName => event => {
-    console.log('Physical conditions switch change (%s)', switchName);
-    console.log(event);
     handleChange({ target: { name: switchName, value: event.target.checked } });
   };
   return (

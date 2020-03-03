@@ -70,7 +70,7 @@ const ReportsSelector = props => {
     <React.Fragment>
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          <Grid container spacing={24}>
+          <Grid container spacing={2}>
             <Grid item xs={8}>
               <Typography variant="subtitle1">Pre-defined Reports</Typography>
             </Grid>

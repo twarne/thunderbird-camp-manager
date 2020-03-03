@@ -11,14 +11,10 @@ const OtherAccomodationsForm = props => {
   registrationFormContext.updateReadyForNext(true);
 
   useEffect(() => {
-    console.log('Effect: other accomodations');
-    console.log(props.otherAccomodations);
     setOtherAccomodations(props.otherAccomodations);
   }, [props.otherAccomodations]);
 
   const handleChange = event => {
-    console.log('Other accomodations change');
-    console.log(event);
     const updatedOtherAccomodations = { ...otherAccomodations };
     updatedOtherAccomodations[event.target.name] = event.target.value;
     props.onChange(updatedOtherAccomodations);

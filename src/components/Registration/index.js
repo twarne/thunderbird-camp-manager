@@ -177,8 +177,6 @@ const Registration = props => {
 
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
-      console.log("Ready to save");
-      console.log(permissionForm);
       props.firebase.storePermissionForm(permissionForm);
     }
     setActiveStep(activeStep + 1);
@@ -189,8 +187,6 @@ const Registration = props => {
   };
 
   const onChange = form => updatedValue => {
-    console.log("Handling event from %s form", form);
-    console.log(updatedValue);
     const updatedPermissionForm = { ...permissionForm };
     updatedPermissionForm[form] = updatedValue;
     setPermissionForm(updatedPermissionForm);
@@ -201,12 +197,10 @@ const Registration = props => {
   };
 
   useEffect(() => {
-    console.log("Effect: event loader");
     if (props.match.params.eventKey) {
       props.firebase
         .loadEventDetails(props.match.params.eventKey)
         .then(eventDoc => {
-          console.log(eventDoc);
           const updatedPermissionForm = { ...permissionForm };
           updatedPermissionForm["eventRef"] = eventDoc.docs[0].ref;
           setPermissionForm(updatedPermissionForm);
@@ -216,7 +210,6 @@ const Registration = props => {
   }, [props.firebase, props.match.params.eventKey]);
 
   useEffect(() => {
-    console.log("Effect: participant required steps");
     let requiredSteps = ["participant"];
     if (event && event.registration) {
       if (event.registration.emergencyContact) {
@@ -238,9 +231,6 @@ const Registration = props => {
     setSteps(requiredSteps);
   }, [event]);
 
-  console.log("Registration Props");
-  console.log(props);
-  console.log(steps);
 
   const { classes } = props;
 
