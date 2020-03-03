@@ -1,109 +1,93 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Redirect, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import PropTypes from 'prop-types';
+
+import firebase from 'firebase';
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import { withStyles, AppBar, Toolbar, Typography, Grid, ButtonBase, CssBaseline, Paper } from '@material-ui/core';
+import NavHeader from '../NavHeader';
 
 import styles from '../Common';
 
 const SignInPage = props => {
-  const { classes } = props;
+  const [authUser, setAuthUser] = useState(null);
 
-  const googleSignIn = event => {
-    console.log('Logging in with Google');
-    props.firebase
-      .doSignInWithGoogle()
-      .then(socialAuthUser => {
-        // Create a user in your Firebase Realtime Database too
-        if (socialAuthUser.additionalUserInfo.isNewUser) {
-          return props.firebase.storeUser(socialAuthUser.user.uid, {
-            name: socialAuthUser.user.displayName,
-            email: socialAuthUser.user.email,
-            roles: []
-          });
-        } else {
-          return props.firebase.user(socialAuthUser.user.uid);
-        }
-      })
-      .then(() => {
-        props.history.push(ROUTES.HOME);
+  const { firebase: _firebase, classes } = props;
+
+  useEffect(() => {
+    //   _firebase.doSignOut();
+  }, []);
+
+  useEffect(() => {
+    return props.firebase.onAuthUserListener(
+      authUser => {
+        setAuthUser(authUser);
+      },
+      () => {
+        setAuthUser(null);
+      }
+    );
+  }, [props.firebase]);
+
+  const signInSuccessCB = socialAuthUser => {
+    console.log('Sign in successful for user');
+    console.log(socialAuthUser);
+    // Create a user in your Firebase Realtime Database too
+    if (socialAuthUser.additionalUserInfo.isNewUser) {
+      console.log('New user!!');
+      _firebase.storeUser(socialAuthUser.user.uid, {
+        name: socialAuthUser.user.displayName,
+        email: socialAuthUser.user.email,
+        roles: []
       });
+    } else {
+      console.log('Known usesr');
+      _firebase.user(socialAuthUser.user.uid);
+    }
 
-    event.preventDefault();
+    return true;
   };
 
-  const fbSignIn = event => {
-    console.log('Logging in with Facebook');
-    props.firebase
-      .doSignInWithFB()
-      .then(socialAuthUser => {
-        // Create a user in your Firebase Realtime Database too
-        if (socialAuthUser.additionalUserInfo.isNewUser) {
-          return props.firebase.storeUser(socialAuthUser.user.uid, {
-            name: socialAuthUser.user.displayName,
-            email: socialAuthUser.user.email,
-            roles: []
-          });
-        } else {
-          return props.firebase.user(socialAuthUser.user.uid);
-        }
-      })
-      .then(() => {
-        props.history.push(ROUTES.HOME);
-      });
-
-    event.preventDefault();
+  const uiConfig = {
+    // Popup signin flow rather than redirect flow.
+    signInFlow: 'popup',
+    // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
+    signInSuccessUrl: ROUTES.HOME,
+    // We will display Google and Facebook as auth providers.
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      firebase.auth.PhoneAuthProvider.PROVIDER_ID
+    ],
+    callbacks: {
+      signInSuccessWithAuthResult: signInSuccessCB
+    }
   };
 
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap className={classes.grow}>
-            Sign in
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <Typography variant="body1" gutterBottom>
-            Please sign in to continue:
-          </Typography>
-          <Grid container spacing={24}>
-            <Grid item xs={6}>
-              <ButtonBase onClick={googleSignIn}>
-                <img src="/img/btn_google_signin_dark_normal_web.png" alt="Sign in with Google" />
-              </ButtonBase>
-            </Grid>
-            <Grid item xs={6}>
-              <ButtonBase onClick={fbSignIn}>
-                <div className={classes.fbLogin}>
-                  <img src="/img/fb_f.png" alt="Sign in with Facebook" className={classes.fbLogo} />
-                  <span variant="button" className={classes.fbText}>
-                    Login with Facebook
-                  </span>
-                </div>
-              </ButtonBase>
-            </Grid>
-          </Grid>
-        </Paper>
-      </main>
-    </React.Fragment>
-  );
+  if (authUser) {
+    return <Redirect to={ROUTES.HOME} />;
+  } else {
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <NavHeader title="Sign In" />
+        <main className={classes.layout}>
+          <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+        </main>
+      </React.Fragment>
+    );
+  }
 };
 
 SignInPage.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-const ComposedSignInPage = compose(
-  withRouter,
-  withFirebase
-)(SignInPage);
+const ComposedSignInPage = compose(withRouter, withFirebase)(SignInPage);
 
 export default withStyles(styles)(ComposedSignInPage);
