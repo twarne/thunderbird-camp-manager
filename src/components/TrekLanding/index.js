@@ -15,6 +15,7 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import { genericHashLink } from 'react-router-hash-link';
 import Countdown from 'react-countdown';
+import YouTube from 'react-youtube';
 import * as Routes from '../../constants/routes';
 import styles from '../Common';
 import NavHeader from '../NavHeader';
@@ -147,6 +148,17 @@ const TrekLanding = props => {
     { link: 'What to Pack', landingElementId: 'what_to_pack' },
     { link: 'Leaders', landingElementId: 'leaders', authOnly: true }
   ];
+
+  const videoResources = [
+    { title: 'Pioneers: Followers of Jesus Christ', videoId: 'J2rV0ey6Op0' },
+    { title: 'Mormon Apostle Dieter F. Uchtdorf Talks about Mormon Pioneers', videoId: 'f8zNBQ8nkKw' },
+    { title: 'Mormon Pioneers - Act of Courage - LDS Church History', videoId: 'WCFLQSy6alE' },
+    { title: 'A Tribute to the Mormon Pioneers HD', videoId: 'cCrVM4fVCRI' }
+  ];
+
+  const videoOptions = {
+    width: "90%"
+  };
 
   const importantDates = [
     { title: 'Trek Committee Meeting', date: 'March 8, 2020', leadersOnly: true },
@@ -342,30 +354,43 @@ const TrekLanding = props => {
             landingElementId="spiritual_preparation"
             titleImg="/img/handcart-pioneers-sam-lawlor-275615-tablet.jpg"
           >
-            <Typography variant="body1" paragraph>
-              More important than the physical experience of trek is the intense spiritual experience that can accompany
-              both your preparation and participation. The pioneers in Church history left family and friends, homes and
-              possessions to gather with the Saints in Kirtland, Missouri, Nauvoo and finally in the Salt Lake Valley.
-              These pioneers were driven by their faith in the goodness of their Heavenly Father, and the importance of
-              the work which they were undertaking.
-            </Typography>
-            <Typography variant="body1" paragraph>
-              In our day, modern pioneers similarly sacrifice to join with the Saints. Each of us has to make the
-              important choice to choose the Savior and His gospel, and to live so that we are worthy of the Spirit and
-              the blessings that the Lord has promised.
-            </Typography>
-            <Typography variant="body1" paragraph>
-              As you prepare for your trek, we encourage you to choose a pioneer, past or present, for whom you can
-              trek. As you learn about the individual you choose, you will feel a kinship and your experience will be
-              strengthened by their experiences. Throughout your preparation and while on trek, you will be asked:
-            </Typography>
-            <Typography variant="h4" align="center" paragraph>
-              What is your name?
-            </Typography>
-            <Typography variant="body1" paragraph>
-              To get started, read about pioneers from the past on the Church's{' '}
-              <a href="https://history.churchofjesuschrist.org/overlandtravel/">Overland Travels</a> site.
-            </Typography>
+            <Grid item xs={12}>
+              <Typography variant="body1" paragraph>
+                More important than the physical experience of trek is the intense spiritual experience that can
+                accompany both your preparation and participation. The pioneers in Church history left family and
+                friends, homes and possessions to gather with the Saints in Kirtland, Missouri, Nauvoo and finally in
+                the Salt Lake Valley. These pioneers were driven by their faith in the goodness of their Heavenly
+                Father, and the importance of the work which they were undertaking.
+              </Typography>
+              <Typography variant="body1" paragraph>
+                In our day, modern pioneers similarly sacrifice to join with the Saints. Each of us has to make the
+                important choice to choose the Savior and His gospel, and to live so that we are worthy of the Spirit
+                and the blessings that the Lord has promised.
+              </Typography>
+              <Typography variant="body1" paragraph>
+                As you prepare for your trek, we encourage you to choose a pioneer, past or present, for whom you can
+                trek. As you learn about the individual you choose, you will feel a kinship and your experience will be
+                strengthened by their experiences. Throughout your preparation and while on trek, you will be asked:
+              </Typography>
+              <Typography variant="h4" align="center" paragraph>
+                What is your name?
+              </Typography>
+              <Typography variant="body1" paragraph>
+                To get started, read about pioneers from the past on the Church's{' '}
+                <a href="https://history.churchofjesuschrist.org/overlandtravel/">Overland Travels</a> site.
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h5" paragraph>
+                Video Resources
+              </Typography>
+            </Grid>
+            {videoResources.map(({ title, videoId }, index) => (
+              <Grid key={index} item xs={12}>
+                <Typography variant="caption">{title}</Typography>
+                <YouTube videoId={videoId} opts={videoOptions} />
+              </Grid>
+            ))}
           </LandingElement>
           <LandingElement
             sectionTitle="Physical Preparation"
