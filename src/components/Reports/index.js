@@ -7,6 +7,7 @@ import AllergiesReport from './allergies';
 import TShirtReport from './tshirts';
 import YearsReport from './years';
 import IndividualsReport from './individuals';
+import NewIndividualsReport from './new_individual';
 
 import styles from '../Common';
 
@@ -30,6 +31,11 @@ const REPORTS = {
     key: 'individuals',
     label: 'Individual Forms',
     value: 'individuals'
+  },
+  new_individual: {
+    key: 'new_individual',
+    label: 'New Individual Forms',
+    value: 'new_individual'
   }
 };
 
@@ -58,6 +64,11 @@ const ReportsSelector = props => {
       setGeneratedReport({
         document: <IndividualsReport permissionForms={permissionForms} event={event} authUser={authUser} />,
         fileName: 'individuals.pdf'
+      });
+    } else if (selectedReport === 'new_individual') {
+      setGeneratedReport({
+        document: <NewIndividualsReport permissionForms={permissionForms} event={event} authUser={authUser} />,
+        fileName: 'new_individuals.pdf'
       });
     }
   }, [selectedReport, authUser, event, permissionForms]);

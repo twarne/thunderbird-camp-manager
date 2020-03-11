@@ -1,23 +1,15 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
-import styles from "../Common";
-import {
-  CssBaseline,
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  withStyles,
-  Grid
-} from "@material-ui/core";
+import styles from '../Common';
+import { CssBaseline, AppBar, Toolbar, Typography, Button, withStyles, Grid } from '@material-ui/core';
 
-import { withFirebase } from "../Firebase";
+import { withFirebase } from '../Firebase';
 
 const NavHeader = props => {
   const [authUser, setAuthUser] = useState(null);
 
-  const { classes, title } = props;
+  const { classes, title, menuOnly } = props;
 
   useEffect(() => {
     return props.firebase.onAuthUserListener(
@@ -35,29 +27,17 @@ const NavHeader = props => {
       <CssBaseline />
       <AppBar>
         <Toolbar>
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            justify="space-between"
-          >
-            <Grid item xs={props.children ? 2 : 6}>
-              <Typography
-                variant="h4"
-                color="inherit"
-                noWrap
-                className={classes.grow}
-              >
-                {title ? title : "Thunderbird Youth"}
+          <Grid container direction="row" alignItems="center" justify="space-between">
+            {menuOnly && props.children}
+            <Grid item xs={!menuOnly && props.children ? 2 : 6}>
+              <Typography variant="h4" color="inherit" noWrap className={classes.grow}>
+                {title ? title : 'Thunderbird Youth'}
               </Typography>
             </Grid>
-            {props.children}
+            {!menuOnly && props.children}
             {authUser && (
               <Grid item xs={1}>
-                <Button
-                  onClick={props.firebase.doSignOut}
-                  className={classes.button}
-                >
+                <Button onClick={props.firebase.doSignOut} className={classes.button}>
                   Logout
                 </Button>
               </Grid>

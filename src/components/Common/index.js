@@ -1,39 +1,39 @@
-import { createMuiTheme } from "@material-ui/core";
+import { createMuiTheme } from '@material-ui/core';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#388E3C"
+      main: '#388E3C'
     },
     secondary: {
-      main: "#9E9E9E"
+      main: '#9E9E9E'
     }
   },
   typography: {
     body1: {
-      fontSize: "1em"
+      fontSize: '1em'
     }
   }
 });
 
 const styles = theme => ({
   appBar: {
-    position: "fixed",
-    [theme.breakpoints.down("sm")]: {
-      width: "auto"
+    position: 'fixed',
+    [theme.breakpoints.down('sm')]: {
+      width: 'auto'
     }
   },
   layout: {
-    width: "auto",
+    width: 'auto',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(4))]: {
       width: 600,
-      marginLeft: "auto",
-      marginRight: "auto"
+      marginLeft: 'auto',
+      marginRight: 'auto'
     },
-    [theme.breakpoints.down("sm")]: {
-      width: "auto"
+    [theme.breakpoints.down('sm')]: {
+      width: 'auto'
     }
   },
   paper: {
@@ -50,8 +50,8 @@ const styles = theme => ({
     padding: `${theme.spacing(3)}px 0 ${theme.spacing(5)}px`
   },
   buttons: {
-    display: "flex",
-    justifyContent: "flex-end"
+    display: 'flex',
+    justifyContent: 'flex-end'
   },
   button: {
     marginTop: theme.spacing(3),
@@ -59,47 +59,54 @@ const styles = theme => ({
   },
   canvas: {
     border: 2,
-    borderStyle: "inset"
+    borderStyle: 'inset'
   },
   grow: {
     flexGrow: 1
   },
   fbLogin: {
     ...theme.typography.button,
-    backgroundColor: "#4267B2",
-    color: "#ffffff"
+    backgroundColor: '#4267B2',
+    color: '#ffffff'
   },
   fbLogo: {
     width: theme.spacing(5),
-    height: "auto"
+    height: 'auto'
   },
   fbText: {
-    verticalAlign: "center"
+    verticalAlign: 'center'
   },
   menuButton: {
     marginLeft: -12,
     marginRight: 20
   },
   landingGridRoot: {
-    padding: theme.spacing(4),
-    fontSize: "1.5em",
-    maxWidth: "1280px",
-    margin: "auto"
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(4)
+    },
+    [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing(1)
+    },
+    fontSize: '1.5em',
+    maxWidth: '1280px',
+    margin: 'auto'
   },
   landingGridSection: {
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       backgroundImage: props => `url(${props.img})`,
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "100%"
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: '100%'
     },
     padding: `${theme.spacing(4)}px 0px ${theme.spacing(4)}px 0px`,
-    minHeight: "500px"
+    minHeight: props => (props.minHeight ? props.minHeight : '500px')
   },
   landingGridContent: {
-    backgroundColor: "rgba(250, 250, 250, .3)"
+    backgroundColor: 'rgba(250, 250, 250, .5)',
+    padding: theme.spacing(1)
   },
   navHeaderLink: {
-    color: "white"
+    color: 'white',
+    cursor: 'pointer'
   }
 });
 

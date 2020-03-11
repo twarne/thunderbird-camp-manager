@@ -1,141 +1,133 @@
-import React, { useState, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import {
-  Paper,
-  Stepper,
-  Step,
-  StepLabel,
-  Button,
-  Link,
-  Typography
-} from "@material-ui/core";
-import { Link as RouterLink } from "react-router-dom";
-import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-import MomentUtils from "@date-io/moment";
+import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import { Paper, Stepper, Step, StepLabel, Button, Link, Typography } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
 
-import { withFirebase } from "../Firebase";
+import { withFirebase } from '../Firebase';
 
-import RegistrationFormContext from "../Context";
+import RegistrationFormContext from '../Context';
 
-import ParticipantInformationForm from "../ParticipantInformationForm";
-import EmergencyContactForm from "../EmergencyContactForm";
-import MedicalInformationForm from "../MedicalInformationForm";
-import PhysicalConditionsForm from "../PhysicalConditionsForm";
-import OtherAccomodationsForm from "../OtherAccomodationsForm";
-import PermissionForm from "../PermissionForm";
+import ParticipantInformationForm from '../ParticipantInformationForm';
+import EmergencyContactForm from '../EmergencyContactForm';
+import MedicalInformationForm from '../MedicalInformationForm';
+import PhysicalConditionsForm from '../PhysicalConditionsForm';
+import OtherAccomodationsForm from '../OtherAccomodationsForm';
+import PermissionForm from '../PermissionForm';
 
-import * as STRINGS from "../../constants/strings";
-import * as ROUTES from "../../constants/routes";
-import styles from "../Common";
-import NavHeader from "../NavHeader";
+import * as STRINGS from '../../constants/strings';
+import * as ROUTES from '../../constants/routes';
+import styles from '../Common';
+import NavHeader from '../NavHeader';
 
 const StepContent = props => {
   switch (props.step) {
-    case "participant":
+    case 'participant':
       return (
         <ParticipantInformationForm
           participant={props.permissionForm.participant}
-          onChange={props.onChange("participant")}
+          onChange={props.onChange('participant')}
           classes={props.classes}
           updateReadyForNext={props.updateReadyForNext}
           includeShirtSize={props.event && props.event.includeShirtSize}
         />
       );
-    case "emergencyContact":
+    case 'emergencyContact':
       return (
         <EmergencyContactForm
           emergencyContact={props.permissionForm.emergencyContact}
-          onChange={props.onChange("emergencyContact")}
+          onChange={props.onChange('emergencyContact')}
           classes={props.classes}
           updateReadyForNext={props.updateReadyForNext}
         />
       );
-    case "medicalInformation":
+    case 'medicalInformation':
       return (
         <MedicalInformationForm
           medicalInformation={props.permissionForm.medicalInformation}
-          onChange={props.onChange("medicalInformation")}
+          onChange={props.onChange('medicalInformation')}
           classes={props.classes}
           updateReadyForNext={props.updateReadyForNext}
         />
       );
-    case "physicalConditions":
+    case 'physicalConditions':
       return (
         <PhysicalConditionsForm
           physicalConditions={props.permissionForm.physicalConditions}
-          onChange={props.onChange("physicalConditions")}
+          onChange={props.onChange('physicalConditions')}
           classes={props.classes}
           updateReadyForNext={props.updateReadyForNext}
         />
       );
-    case "otherAccomodations":
+    case 'otherAccomodations':
       return (
         <OtherAccomodationsForm
           otherAccomodations={props.permissionForm.otherAccomodations}
-          onChange={props.onChange("otherAccomodations")}
+          onChange={props.onChange('otherAccomodations')}
           classes={props.classes}
           updateReadyForNext={props.updateReadyForNext}
         />
       );
-    case "permission":
+    case 'permission':
       return (
         <PermissionForm
-          key={"permission"}
+          key={'permission'}
           permissions={props.permissionForm.permission}
           releaseText={STRINGS.PERMISSION}
           includeParticipant={true}
           participantSigRef={props.permissionParticipantSigRef}
           includeParent={true}
           parentSigRef={props.permissionParentSigRef}
-          onChange={props.onChange("permission")}
+          onChange={props.onChange('permission')}
           classes={props.classes}
           updateReadyForNext={props.updateReadyForNext}
         />
       );
-    case "youthIPRelease":
+    case 'youthIPRelease':
       return (
         <PermissionForm
-          key={"youthIPRelease"}
+          key={'youthIPRelease'}
           permissions={props.permissionForm.youthIPRelease}
           releaseText={STRINGS.YOUTH_RELEASE}
           includeParticipant={true}
           participantSigRef={props.youthIPParticipantSigRef}
-          onChange={props.onChange("youthIPRelease")}
+          onChange={props.onChange('youthIPRelease')}
           classes={props.classes}
           updateReadyForNext={props.updateReadyForNext}
         />
       );
-    case "parentIPRelease":
+    case 'parentIPRelease':
       return (
         <PermissionForm
-          key={"parentIPRelease"}
+          key={'parentIPRelease'}
           permissions={props.permissionForm.parentIPRelease}
           releaseText={STRINGS.PARENT_RELEASE}
           includeParent={true}
           parentSigRef={props.parentIPParentSigRef}
-          onChange={props.onChange("parentIPRelease")}
+          onChange={props.onChange('parentIPRelease')}
           classes={props.classes}
           updateReadyForNext={props.updateReadyForNext}
         />
       );
-    case "rappellingRelease":
+    case 'rappellingRelease':
       return (
         <PermissionForm
-          key={"rappellingRelease"}
+          key={'rappellingRelease'}
           permissions={props.permissionForm.rappellingRelease}
           releaseText={STRINGS.RAPPELLING_RELEASE}
           includeParticipant={true}
           participantSigRef={props.rappellingReleaseParticipantSigRef}
           includeParent={true}
           parentSigRef={props.rappellingReleaseParentSigRef}
-          onChange={props.onChange("rappellingRelease")}
+          onChange={props.onChange('rappellingRelease')}
           classes={props.classes}
           updateReadyForNext={props.updateReadyForNext}
         />
       );
     default:
-      throw new Error("Unknown step");
+      throw new Error('Unknown step');
   }
 };
 
@@ -147,11 +139,11 @@ const Registration = props => {
     emergencyContact: {},
     medicalInformation: {
       hasDietaryRestriction: false,
-      dietaryRestriction: "",
+      dietaryRestriction: '',
       hasAllergies: false,
-      allergies: "",
+      allergies: '',
       isTakingMedication: false,
-      medication: "",
+      medication: '',
       canSelfAdminister: false,
       allowedOTCs: []
     },
@@ -164,7 +156,7 @@ const Registration = props => {
   });
   const [event, setEvent] = useState(null);
   const [readyForNext, setReadyForNext] = useState(false);
-  const [steps, setSteps] = useState(["participant"]);
+  const [steps, setSteps] = useState(['participant']);
 
   const permissionParticipantSigRef = useRef(null);
   const permissionParentSigRef = useRef(null);
@@ -198,31 +190,29 @@ const Registration = props => {
 
   useEffect(() => {
     if (props.match.params.eventKey) {
-      props.firebase
-        .loadEventDetails(props.match.params.eventKey)
-        .then(eventDoc => {
-          const updatedPermissionForm = { ...permissionForm };
-          updatedPermissionForm["eventRef"] = eventDoc.docs[0].ref;
-          setPermissionForm(updatedPermissionForm);
-          setEvent(eventDoc.docs[0].data());
-        });
+      props.firebase.loadEventDetails(props.match.params.eventKey).then(eventDoc => {
+        const updatedPermissionForm = { ...permissionForm };
+        updatedPermissionForm['eventRef'] = eventDoc.docs[0].ref;
+        setPermissionForm(updatedPermissionForm);
+        setEvent(eventDoc.docs[0].data());
+      });
     }
   }, [props.firebase, props.match.params.eventKey]);
 
   useEffect(() => {
-    let requiredSteps = ["participant"];
+    let requiredSteps = ['participant'];
     if (event && event.registration) {
       if (event.registration.emergencyContact) {
-        requiredSteps.push("emergencyContact");
+        requiredSteps.push('emergencyContact');
       }
       if (event.registration.medicalInformation) {
-        requiredSteps.push("medicalInformation");
+        requiredSteps.push('medicalInformation');
       }
       if (event.registration.physicalConditions) {
-        requiredSteps.push("physicalConditions");
+        requiredSteps.push('physicalConditions');
       }
       if (event.registration.otherAccomodations) {
-        requiredSteps.push("otherAccomodations");
+        requiredSteps.push('otherAccomodations');
       }
       if (event.registration.permissions) {
         requiredSteps = requiredSteps.concat(event.registration.permissions);
@@ -230,7 +220,6 @@ const Registration = props => {
     }
     setSteps(requiredSteps);
   }, [event]);
-
 
   const { classes } = props;
 
@@ -242,9 +231,7 @@ const Registration = props => {
   return (
     <MuiPickersUtilsProvider utils={MomentUtils}>
       <RegistrationFormContext.Provider value={readyForNextContext}>
-        <NavHeader
-          title={event ? `${event.title} Registration` : "Loading..."}
-        />
+        <NavHeader title={event ? `${event.title}` : 'Loading...'} />
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Typography component="h1" variant="h4" align="center">
@@ -264,8 +251,7 @@ const Registration = props => {
                     Thank you for registering!
                   </Typography>
                   <Typography variant="subtitle1">
-                    If you have any questions, please contact the activity
-                    leader for your ward.
+                    If you have any questions, please contact the activity leader for your ward.
                   </Typography>
                   <Link component={RouterLink} to={ROUTES.EVENT(event.key)}>
                     Back to {event.title}
@@ -284,12 +270,8 @@ const Registration = props => {
                     permissionParentSigRef={permissionParentSigRef}
                     youthIPParticipantSigRef={youthIPParticipantSigRef}
                     parentIPParentSigRef={parentIPParentSigRef}
-                    rappellingReleaseParticipantSigRef={
-                      rappellingReleaseParticipantSigRef
-                    }
-                    rappellingReleaseParentSigRef={
-                      rappellingReleaseParentSigRef
-                    }
+                    rappellingReleaseParticipantSigRef={rappellingReleaseParticipantSigRef}
+                    rappellingReleaseParentSigRef={rappellingReleaseParentSigRef}
                   />
                   <div className={classes.buttons}>
                     {activeStep !== 0 && (
@@ -304,7 +286,7 @@ const Registration = props => {
                       className={classes.button}
                       disabled={!readyForNext}
                     >
-                      {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                      {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                     </Button>
                   </div>
                 </React.Fragment>

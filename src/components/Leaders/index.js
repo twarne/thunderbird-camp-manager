@@ -298,11 +298,11 @@ const LeadersPage = props => {
         <Grid item xs={1}>
           <Link
             component={RouterLink}
-            to={ROUTES.EVENT("trek2020")}
+            to={ROUTES.EVENT(props.match.params.eventKey)}
             variant="button"
             className={classes.navHeaderLink}
           >
-            Back to Trek 2020
+            {`Back to ${event.title}`}
           </Link>
         </Grid>
       </NavHeader>

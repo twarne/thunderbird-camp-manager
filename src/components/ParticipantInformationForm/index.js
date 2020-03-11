@@ -1,48 +1,48 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from 'react';
 
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-import { KeyboardDatePicker } from "@material-ui/pickers";
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import { KeyboardDatePicker } from '@material-ui/pickers';
 
-import moment from "moment";
-import RegistrationFormContext from "../Context";
+import moment from 'moment';
+import RegistrationFormContext from '../Context';
 
 const SHIRT_SIZES = [
-  { key: "shirt_size_small", value: "Small", label: "Small" },
-  { key: "shirt_size_medium", value: "Medium", label: "Medium" },
-  { key: "shirt_size_large", value: "Large", label: "Large" },
-  { key: "shirt_size_xlarge", value: "X-Large", label: "X-Large" }
+  { key: 'shirt_size_small', value: 'Small', label: 'Small' },
+  { key: 'shirt_size_medium', value: 'Medium', label: 'Medium' },
+  { key: 'shirt_size_large', value: 'Large', label: 'Large' },
+  { key: 'shirt_size_xlarge', value: 'X-Large', label: 'X-Large' }
 ];
 
 const WARDS = [
-  { key: "ward_ar", value: "Arrowhead Ranch", label: "Arrowhead Ranch" },
-  { key: "ward_mr", value: "Mountain Ridge", label: "Mountain Ridge" },
-  { key: "ward_sv", value: "Sierra Verde", label: "Sierra Verde" },
-  { key: "ward_sm", value: "Sonoran Mountain", label: "Sonoran Mountain" },
-  { key: "ward_st", value: "Stetson Valley", label: "Stetson Valley" },
-  { key: "ward_th", value: "Thunderbird Hills", label: "Thunderbird Hills" },
-  { key: "ward_no", value: "None", label: "None" }
+  { key: 'ward_ar', value: 'Arrowhead Ranch', label: 'Arrowhead Ranch' },
+  { key: 'ward_mr', value: 'Mountain Ridge', label: 'Mountain Ridge' },
+  { key: 'ward_sv', value: 'Sierra Verde', label: 'Sierra Verde' },
+  { key: 'ward_sm', value: 'Sonoran Mountain', label: 'Sonoran Mountain' },
+  { key: 'ward_st', value: 'Stetson Valley', label: 'Stetson Valley' },
+  { key: 'ward_th', value: 'Thunderbird Hills', label: 'Thunderbird Hills' },
+  { key: 'ward_no', value: 'None', label: 'None' }
 ];
 
 const ParticipantInformationForm = props => {
   const [participant, setParticipant] = useState({
-    name: "",
-    dateOfBirth: "",
-    phoneNumber: "",
-    secondaryPhoneNumber: "",
-    address: "",
-    city: "",
-    state: "",
-    zip: "",
-    ward: ""
+    name: '',
+    dateOfBirth: '',
+    phoneNumber: '',
+    secondaryPhoneNumber: '',
+    address: '',
+    city: '',
+    state: '',
+    zip: '',
+    ward: ''
   });
 
   const registrationFormContext = useContext(RegistrationFormContext);
 
   useEffect(() => {
-    setParticipant(props.participant);
+    setParticipant({...participant, ...props.participant});
   }, [props.participant]);
 
   const handleSelectChange = targetName => {
@@ -56,7 +56,7 @@ const ParticipantInformationForm = props => {
   const handleDateChange = (date, value) => {
     const event = {
       target: {
-        name: "dateOfBirth",
+        name: 'dateOfBirth',
         value: value
       }
     };
@@ -67,13 +67,13 @@ const ParticipantInformationForm = props => {
     const updatedParticipant = { ...participant };
     updatedParticipant[event.target.name] = event.target.value;
     if (
-      event.target.name === "dateOfBirth" &&
+      event.target.name === 'dateOfBirth' &&
       event.target.value &&
       event.target.value.match(/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}/)
     ) {
       const dateOfBirth = moment(updatedParticipant.dateOfBirth);
       const eventDate = moment(props.eventStartDate);
-      const age = eventDate.diff(dateOfBirth, "years");
+      const age = eventDate.diff(dateOfBirth, 'years');
       updatedParticipant.age = age;
     }
     props.onChange(updatedParticipant);
@@ -109,7 +109,7 @@ const ParticipantInformationForm = props => {
             onChange={handleParticipantChange}
             value={participant.name}
             InputLabelProps={{
-              shrink: participant.name && participant.name !== ""
+              shrink: participant.name && participant.name !== ''
             }}
           />
         </Grid>
@@ -197,7 +197,7 @@ const ParticipantInformationForm = props => {
               id="shirtSize"
               select
               value={participant.shirtSize}
-              onChange={handleSelectChange("shirtSize")}
+              onChange={handleSelectChange('shirtSize')}
               helperText="Please select your t-shirt size"
               required
             >
@@ -213,8 +213,8 @@ const ParticipantInformationForm = props => {
           <TextField
             id="ward"
             select
-            value={participant.ward ? participant.ward : ""}
-            onChange={handleSelectChange("ward")}
+            value={participant.ward ? participant.ward : ''}
+            onChange={handleSelectChange('ward')}
             helperText="Please select your ward"
             required
           >
