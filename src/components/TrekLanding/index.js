@@ -157,19 +157,19 @@ const TrekLanding = props => {
   ];
 
   const videoOptions = {
-    width: "90%"
+    width: '90%'
   };
 
   const importantDates = [
     { title: 'Trek Committee Meeting', date: 'March 8, 2020', leadersOnly: true },
-    { title: 'Stetson Valley Fireside', date: 'March 24, 2020' },
-    { title: 'Arrowhead Ranch and Sierra Verde Fireside', date: 'March 25, 2020' },
+    { title: 'Stetson Valley Fireside', date: 'March 24, 2020', tbd: true },
+    { title: 'Arrowhead Ranch and Sierra Verde Fireside', date: 'March 25, 2020', tbd: true },
     { title: 'Trek Committee Meeting', date: 'March 29, 2020', leadersOnly: true },
-    { title: 'Mountain Ridge Fireside', date: 'April 1, 2020' },
-    { title: 'Thunderbird Hills Fireside', date: 'April 8, 2020' },
-    { title: 'Sonoran Mountain Fireside', date: 'April 15, 2020' },
+    { title: 'Mountain Ridge Fireside', date: 'April 1, 2020', tbd: true },
+    { title: 'Thunderbird Hills Fireside', date: 'April 8, 2020', tbd: true },
+    { title: 'Sonoran Mountain Fireside', date: 'April 15, 2020', tbd: true },
     { title: 'Trek Committee Meeting', date: 'April 19, 2020', leadersOnly: true },
-    { title: 'Ma and Pa Training', date: 'April 17-18, 2020', leadersOnly: true },
+    { title: 'Ma and Pa Training', date: 'April 17-18, 2020', leadersOnly: true, tbd: true },
     { title: 'Trek Committee Meeting', date: 'May 17, 2020', leadersOnly: true },
     { title: 'Equipment Check', date: 'May 30, 2020' },
     { title: 'Trek', date: 'June 3, 2020' }
@@ -288,6 +288,15 @@ const TrekLanding = props => {
       </NavHeader>
       {event && (
         <Grid container spacing={4} className={classes.landingGridRoot}>
+          <Grid item xs={12}>
+            <Typography variant="h3" paragraph>
+              Update on COVID-19
+            </Typography>
+            <Typography variant="body1" paragraph>
+              In keeping with adjustments directed by church leaders, the kick-off firesides will be postponed, and will
+              be rescheduled at a later date. Thank you for your understanding!
+            </Typography>
+          </Grid>
           <LandingElement
             sectionTitle="Trek 2020"
             hideTitle
@@ -336,11 +345,11 @@ const TrekLanding = props => {
           >
             <Grid item xs={12} className={classes.landingGridContent}>
               <List className={classes.root}>
-                {importantDates.map(({ title, date, leadersOnly }, index) => (
+                {importantDates.map(({ title, date, leadersOnly, tbd }, index) => (
                   <React.Fragment key={index}>
                     {(!leadersOnly || authUser) && (
                       <ListItem>
-                        <ListItemText primary={title} secondary={date} />
+                        <ListItemText primary={title} secondary={tbd ? 'TBD' : date} />
                       </ListItem>
                     )}
                   </React.Fragment>
