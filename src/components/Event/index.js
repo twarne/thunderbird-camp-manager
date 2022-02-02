@@ -34,7 +34,7 @@ const Event = props => {
   return (
     <React.Fragment>
       <CssBaseline />
-      {props.match.params.eventKey === "trek2020" ? (
+      {props.match.params.eventKey === "trek2022" ? (
         <TrekLanding event={event} />
       ) : (
         <React.Fragment>

@@ -27,7 +27,7 @@ const App = props => (
             <Route path={ROUTES.SIGN_IN} component={SignIn} />
             <Route path={ROUTES.SIGN_OUT} component={SignOut} />
             <Route exact path={ROUTES.LANDING}>
-              <Redirect to={ROUTES.EVENT('trek2020')} />
+              <Redirect to={ROUTES.EVENT('trek2022')} />
             </Route>
           </Switch>
         </div>

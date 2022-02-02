@@ -3,7 +3,6 @@ import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/ho
 import { IconButton, Menu, MenuItem, Link, withStyles } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { withFirebase } from '../Firebase';
-import { Link as RouterLink } from 'react-router-dom';
 import { genericHashLink } from 'react-router-hash-link';
 import styles from '../Common';
 

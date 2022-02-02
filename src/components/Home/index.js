@@ -23,7 +23,7 @@ const HomePage = props => {
 
   useEffect(() => {
     if (isAuthorized(authUser)) {
-      props.history.push(ROUTES.LEADERS.replace(':eventKey', 'trek2020'));
+      props.history.push(ROUTES.LEADERS.replace(':eventKey', 'trek2022'));
     }
   }, [authUser, props.history]);
 
