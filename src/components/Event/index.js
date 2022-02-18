@@ -12,19 +12,24 @@ import styles from "../Common";
 
 import * as ROUTES from "../../constants/routes";
 
-const Event = props => {
+const Event = (props) => {
   const [loading, setLoading] = useState(true);
   const [event, setEvent] = useState(null);
 
   useEffect(() => {
+    console.log("Event key: " + props.match.params.eventKey);
     if (props.match.params.eventKey) {
+      console.log(props.firebase);
       props.firebase
         .loadEventDetails(props.match.params.eventKey)
-        .then(eventDoc => {
+        .then((eventDoc) => {
+          console.log(eventDoc);
           setLoading(false);
           if (eventDoc.docs.length > 0) {
+            console.log("Event has data");
             setEvent(eventDoc.docs[0].data());
           } else {
+            console.log("Event is null");
             setEvent(null);
           }
         });
@@ -35,7 +40,7 @@ const Event = props => {
     <React.Fragment>
       <CssBaseline />
       {props.match.params.eventKey === "trek2022" ? (
-        <TrekLanding event={event} />
+        <TrekLanding />
       ) : (
         <React.Fragment>
           <NavHeader
@@ -53,7 +58,7 @@ const Event = props => {
                       ":eventKey",
                       event.key
                     ),
-                    state: { event: event }
+                    state: { event: event },
                   }}
                 >
                   Register
@@ -68,7 +73,7 @@ const Event = props => {
 };
 
 Event.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withFirebase(withStyles(styles)(Event));

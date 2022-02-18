@@ -1,40 +1,58 @@
-import { createMuiTheme } from '@material-ui/core';
+import { createMuiTheme, responsiveFontSizes } from "@material-ui/core";
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#388E3C'
+const theme = responsiveFontSizes(
+  createMuiTheme({
+    palette: {
+      primary: {
+        main: "#388E3C",
+      },
+      secondary: {
+        main: "#9E9E9E",
+      },
     },
-    secondary: {
-      main: '#9E9E9E'
-    }
-  },
-  typography: {
-    body1: {
-      fontSize: '1em'
-    }
-  }
-});
+    typography: {
+      body1: {
+        fontSize: "1.2rem",
+      },
+      body2: {
+        fontSize: "1rem",
+        lineHeight: "1.1em",
+      },
+      button: {
+        lineHeight: "1em",
+      },
+      subtitle1: {
+        fontFamily: "Caveat",
+        fontSize: "4rem",
+        alignContent: "center",
+      },
+      h3: {
+        alignContent: "center"
+      }
+    },
+  })
+);
 
-const styles = theme => ({
+const styles = (theme) => ({
   appBar: {
-    position: 'fixed',
-    [theme.breakpoints.down('sm')]: {
-      width: 'auto'
-    }
+    position: "fixed",
+    [theme.breakpoints.down("sm")]: {
+      width: "auto",
+    },
+    backgroundColor: "#1FA84D",
   },
   layout: {
-    width: 'auto',
+    width: "auto",
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(4))]: {
       width: 600,
-      marginLeft: 'auto',
-      marginRight: 'auto'
+      marginLeft: "auto",
+      marginRight: "auto",
     },
-    [theme.breakpoints.down('sm')]: {
-      width: 'auto'
-    }
+    [theme.breakpoints.down("sm")]: {
+      width: "auto",
+    },
   },
   paper: {
     marginTop: theme.spacing(3),
@@ -43,71 +61,90 @@ const styles = theme => ({
     [theme.breakpoints.up(600 + theme.spacing(6))]: {
       marginTop: theme.spacing(6),
       marginBottom: theme.spacing(6),
-      padding: theme.spacing(3)
-    }
+      padding: theme.spacing(3),
+    },
+    backgroundColor: "rgba(250, 250, 250, .8)",
   },
   stepper: {
-    padding: `${theme.spacing(3)}px 0 ${theme.spacing(5)}px`
+    padding: `${theme.spacing(3)}px 0 ${theme.spacing(5)}px`,
   },
   buttons: {
-    display: 'flex',
-    justifyContent: 'flex-end'
+    display: "flex",
+    justifyContent: "flex-end",
   },
   button: {
     marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1)
+    marginLeft: theme.spacing(1),
   },
   canvas: {
     border: 2,
-    borderStyle: 'inset'
+    borderStyle: "inset",
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   fbLogin: {
     ...theme.typography.button,
-    backgroundColor: '#4267B2',
-    color: '#ffffff'
+    backgroundColor: "#4267B2",
+    color: "#ffffff",
   },
   fbLogo: {
     width: theme.spacing(5),
-    height: 'auto'
+    height: "auto",
   },
   fbText: {
-    verticalAlign: 'center'
+    verticalAlign: "center",
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20
+    marginRight: 20,
   },
   landingGridRoot: {
-    [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(4)
+    [theme.breakpoints.up("sm")]: {
+      padding: theme.spacing(4),
     },
-    [theme.breakpoints.down('xs')]: {
-      padding: theme.spacing(1)
+    [theme.breakpoints.down("xs")]: {
+      padding: theme.spacing(1),
     },
-    fontSize: '1.5em',
-    maxWidth: '1280px',
-    margin: 'auto'
+    fontSize: "1.5em",
+    maxWidth: "1280px",
+    margin: "auto",
   },
   landingGridSection: {
-    [theme.breakpoints.up('sm')]: {
-      backgroundImage: props => `url(${props.img})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: '100%'
+    [theme.breakpoints.up("sm")]: {
+      backgroundImage: (props) => `url(${props.img})`,
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "100%",
     },
     padding: `${theme.spacing(4)}px 0px ${theme.spacing(4)}px 0px`,
-    minHeight: props => (props.minHeight ? props.minHeight : '500px')
+    minHeight: (props) => (props.img ? "925px" : "500px"),
   },
   landingGridContent: {
-    backgroundColor: 'rgba(250, 250, 250, .5)',
-    padding: theme.spacing(1)
+    padding: theme.spacing(1),
   },
   navHeaderLink: {
-    color: 'white',
-    cursor: 'pointer'
-  }
+    color: "white",
+    cursor: "pointer",
+  },
+  packingListPrimary: {
+    color: "blue",
+  },
+  staffPosition: {
+    fontWeight: "bold",
+  },
+  staffPeople: {
+    paddingLeft: "1rem",
+  },
+  subGoal: {
+    paddingTop: ".5rem",
+    paddingLeft: "1.5rem",
+  },
+  dateTimePlace: {
+    padding: theme.spacing(2),
+  },
+  dateInvited: {
+    padding: theme.spacing(2),
+  },
 });
 
 export default styles;

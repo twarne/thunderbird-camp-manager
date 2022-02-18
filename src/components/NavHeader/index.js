@@ -1,47 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import styles from '../Common';
-import { CssBaseline, AppBar, Toolbar, Typography, Button, withStyles, Grid } from '@material-ui/core';
-
-import { withFirebase } from '../Firebase';
+import { CssBaseline, AppBar, Toolbar, Typography, withStyles, Grid } from '@material-ui/core';
 
 const NavHeader = props => {
-  const [authUser, setAuthUser] = useState(null);
-
   const { classes, title, menuOnly } = props;
-
-  useEffect(() => {
-    return props.firebase.onAuthUserListener(
-      authUser => {
-        setAuthUser(authUser);
-      },
-      () => {
-        setAuthUser(null);
-      }
-    );
-  }, [props.firebase]);
 
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar>
+      <AppBar className={classes.appBar}>
         <Toolbar>
-          <Grid container direction="row" alignItems="center" justify="space-between">
+          <Grid container direction="row" alignItems="center" justify="space-between" spacing={menuOnly ? 4 : 4}>
             {menuOnly && props.children}
-            <Grid item xs={!menuOnly && props.children ? 2 : 6}>
+            <Grid item xs={!menuOnly && props.children ? 1 : 8}>
               <Typography variant="h4" color="inherit" noWrap className={classes.grow}>
                 {title ? title : 'Thunderbird Youth'}
               </Typography>
             </Grid>
             {!menuOnly && props.children}
-            {authUser && (
-              <Grid item xs={1}>
-                <Button onClick={props.firebase.doSignOut} className={classes.button}>
-                  Logout
-                </Button>
-              </Grid>
-            )}
           </Grid>
         </Toolbar>
       </AppBar>
@@ -54,4 +32,4 @@ NavHeader.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withFirebase(withStyles(styles)(NavHeader));
+export default withStyles(styles)(NavHeader);
