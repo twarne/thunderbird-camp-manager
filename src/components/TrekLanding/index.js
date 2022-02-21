@@ -163,7 +163,6 @@ const TrekLanding = (props) => {
 
   const links = [
     { link: "Home", landingElementId: "home" },
-    { link: "Theme", landingElementId: "theme" },
     { link: "Goals", landingElementId: "goals" },
     { link: "Dates to Remember", landingElementId: "dates_to_remember" },
     {
@@ -196,7 +195,7 @@ const TrekLanding = (props) => {
 
   const importantDates = [
     {
-      title: "Trek '22 Devotional",
+      title: "T'22 Devotional",
       date: "February 27, 2022",
       time: "7pm",
       location: "Stake Center",
@@ -204,69 +203,67 @@ const TrekLanding = (props) => {
         "All youth 14+ in 2022, YM/YW Leaders, Parents, Trek Committee Members, Ma's & Pa's",
     },
     {
-      title: "Trek '22 Prep Hike #1",
+      title: "T'22 Prep Hike #1",
       date: "March 5, 2022",
       time: "8am",
-      location:
-        "Thunderbird Park - Meet at Trailhead in parking lot on Pinnacle Peak & 55th Ave",
+      location: "Stake Center",
       invited: "All youth 14+ in 2022, Stake YM/YW Leaders, Ma's and Pa's",
     },
     {
-      title: "Trek '22 Ward Coordinator Meeting",
+      title: "T'22 Ward Coordinator Meeting",
       date: "March 6, 2022",
       time: "5:30-6:30 PM",
       location: "Stake Center",
       invited: "Trek Coordinators from each ward",
     },
     {
-      title: "Trek '22 Committee Meeting",
+      title: "T'22 Committee Meeting",
       date: "March 6, 2020",
       time: "7pm",
       location: "Stake Center",
       invited: "All Trek '22 Committee Members",
     },
     {
-      title: "Trek '22 Ma/Pa Orientation Meeting",
+      title: "T'22 Ma/Pa Orientation Meeting",
       date: "March 10, 2022",
       time: "7:00-8:30 PM",
       location: "Stake Center",
       invited: "All Ma's & Pa's",
     },
     {
-      title: "Trek '22 Ma/Pa Training",
+      title: "T'22 Ma/Pa Training",
       date: "May 6-May 7, 2022",
       time: "Overnight",
       location: "TBD",
       invited: "All Ma's & Pa's, Related Committee Members",
     },
     {
-      title: "Trek '22 Prep Hike #2",
+      title: "T'22 Prep Hike #2",
       date: "May 11, 2022",
       time: "5:30 PM",
-      location:
-        "Thunderbird Park - Meet at Trailhead in parking lot on Pinnacle Peak & 55th Ave",
+      location: "Stake Center",
       invited: "All youth 14+ in 2022, Stake YM/YW Leaders, Ma's and Pa's",
     },
     {
-      title: "Trek '22 Committee Meeting",
+      title: "T'22 Committee Meeting",
       date: "May 24, 2022",
       time: "7:00 PM",
       location: "Stake Center",
       invited: "All Trek '22 Committee Members",
     },
     {
-      title: "Trek '22 Gear Shake Down/Drop Off",
+      title: "T'22 Gear Shake Down/Drop Off",
       date: "June 4, 2022",
       time: "10:00 AM - 2:00 PM (Wards will be assigned a specific window of time)",
       location: "Stake Center",
       invited: "All youth attending Trek and Ma's & Pa's",
     },
     {
-      title: "Trek '22",
+      title: "T'22",
       date: "June 8-June 11, 2022",
     },
     {
-      title: "Trek '22 Recap Devotional",
+      title: "T'22 Recap Devotional",
       date: "August 14, 2022",
       time: "7:00 PM",
       location: "Stake Center",
@@ -408,7 +405,7 @@ const TrekLanding = (props) => {
     },
     {
       position: "Food Committee Chairs",
-      people: ["Coming Soon"],
+      people: ["Julie & Nathan Ford (STV)"],
     },
     {
       position: "Ward Trek Coordinators",
@@ -486,27 +483,18 @@ const TrekLanding = (props) => {
                 revelation, the Spirit will guide you in your preparation to get
                 the most out of this experience.
               </Typography>
+              <Typography variant="body1" paragraph>
+                We look forward to the unique opportunity of walking for a brief
+                time in the footsteps of our pioneer ancestors, reflecting on
+                their legacy of faith, and pondering their endless sacrifices.
+                Our hope is that all participants of T'22 will gain a clearer
+                understanding of how to apply the eternal principles exemplified
+                by these extraordinary pioneers in our own lives, as we continue
+                on our journey to become true disciples of Jesus Christ.
+              </Typography>
+              <Typography variant="subtitle1">This is the Place...</Typography>
+              <Typography variant="subtitle1">Now is OUR Time!</Typography>
             </Grid>
-          </Grid>
-        </LandingElement>
-        <LandingElement
-          sectionTitle="Theme"
-          index={2}
-          landingElementId="theme"
-          titleImg="/img/trek-22-theme-quote.png"
-        >
-          <Grid item xs={12} className={classes.landingGridContent}>
-            <Typography variant="body1" paragraph>
-              We look forward to the unique opportunity of walking for a brief
-              time in the footsteps of our pioneer ancestors, reflecting on
-              their legacy of faith, and pondering their endless sacrifices. Our
-              hope is that all participants of T'22 will gain a clearer
-              understanding of how to apply the eternal principles exemplified
-              by these extraordinary pioneers in our own lives, as we continue
-              on our journey to become true disciples of Jesus Christ.
-            </Typography>
-            <Typography variant="subtitle1">This is our Place...</Typography>
-            <Typography variant="subtitle1">Now is OUR Time!</Typography>
           </Grid>
         </LandingElement>
         <LandingElement
@@ -521,7 +509,8 @@ const TrekLanding = (props) => {
         >
           <Grid item xs={12} className={classes.landingGridContent}>
             <Typography variant="body1" paragraph>
-              Cultivate an increased ability, and greater desire to...
+              Cultivate in each participant an increased ability, and greater
+              desire to...
             </Typography>
             <Box fontWeight={500}>TRUST</Box>{" "}
             <Typography variant="body1" paragraph className={classes.subGoal}>
@@ -539,6 +528,7 @@ const TrekLanding = (props) => {
             <Typography variant="body1" paragraph className={classes.subGoal}>
               with steadfast faith in Christ.
             </Typography>
+            <Img src={"/img/trek-22-theme-quote.png"} width="100%" />
           </Grid>
         </LandingElement>
         <LandingElement
@@ -652,7 +642,7 @@ const TrekLanding = (props) => {
               stress. Take practice hikes and prepare to walk uphill. Many of us
               would benefit from improving our physical fitness before trek.
               Also, remember to join us on our T'22 Prep Hikes, March 5th & May
-              5th!
+              11th!
             </Typography>
           </Grid>
         </LandingElement>
@@ -721,7 +711,8 @@ const TrekLanding = (props) => {
         >
           <Grid item xs={12} className={classes.landingGridContent}>
             <Typography variant="body1">
-              Plan to pack the following items (<Link href="/trek_22_packing_list.pdf">Download list</Link>):
+              Plan to pack the following items (
+              <Link href="/trek_22_packing_list.pdf">Download list</Link>):
             </Typography>
             <List className={classes.packingList}>
               {packingList.map(({ primary, secondary, sublist }, index) => (
