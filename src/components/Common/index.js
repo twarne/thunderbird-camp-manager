@@ -26,6 +26,12 @@ const theme = responsiveFontSizes(
         fontSize: "4rem",
         alignContent: "center",
       },
+      subtitle2: {
+        fontSize: "1rem",
+        lineHeight: "1.2em",
+        fontStyle: "italic",
+        fontWeight: "400"
+      },
       h3: {
         alignContent: "center"
       }
@@ -138,6 +144,19 @@ const styles = (theme) => ({
   subGoal: {
     paddingTop: ".5rem",
     paddingLeft: "1.5rem",
+  },
+  subGoal2: {
+    paddingTop: ".5rem",
+    paddingLeft: "1.5rem",
+    paddingBottom: "1.5rem"
+  },
+  regDetails: {
+    paddingTop: ".5rem"
+  },
+  regFooter: {
+    paddingTop: ".5rem",
+    alignContent: "center",
+    fontWeight: "bold"
   },
   dateTimePlace: {
     padding: theme.spacing(2),

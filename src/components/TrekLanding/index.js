@@ -231,6 +231,12 @@ const TrekLanding = (props) => {
       invited: "All Ma's & Pa's",
     },
     {
+      title: "T'22 Online Registration & Fees Due",
+      date: "March 31, 2022",
+      location:
+        "Complete registration form online; Pay $40 registration fee to your ward",
+    },
+    {
       title: "T'22 Ma/Pa Training",
       date: "May 6-May 7, 2022",
       time: "Overnight",
@@ -278,36 +284,33 @@ const TrekLanding = (props) => {
       secondary:
         "LABELED with name and ward, ALL gear must fit in bucket (except sleeping bag), bucket will be used as a STOOL and it also waterproofs your gear.",
     },
-    { primary: "Flashlight w/batteries" },
     { primary: "Warm sleeping bag in a heavy-duty trash bag" },
     { primary: "Heavy-duty trash bag for dirty or wet clothes" },
     {
-      primary: "Mess kit",
-      secondary: "(plate, bowl, spoon, and fork) labeled with your name",
+      primary: "Pie tin and a large spoon",
+      secondary: "Labeled with your name",
     },
-    { primary: "Mesh bag to hold mess kit" },
     {
       primary: "Tin cup with handle",
       secondary: "Must be carried on you hands free",
     },
     {
-      primary: "2 Carabiners",
-      secondary: "1 to attach tin cup to belt loop or apron and 1 for mesh bag",
+      primary: "1 Carabiners",
+      secondary: "To attach tin cup to belt loop or apron",
     },
     {
       primary: "Personal hygiene Items",
       sublist: [
         { primary: "Small hand towel/or pre-moistened wipes for face & hands" },
-        { primary: "travel size shampoo, conditioner, and soap" },
         { primary: "toothbrush, toothpaste, and dental floss" },
         { primary: "deodorant" },
         { primary: "lotion" },
-        { primary: "chap-stick" },
+        { primary: "Chap-stick with suncreen (not optional)" },
         { primary: "comb or brush" },
         { primary: "hand sanitizer and tissues" },
         {
           primary: "contact lens solution and case",
-          secondary: "if you wear contact lenses",
+          secondary: "Consider wearing glasses instead of contacts",
         },
         { primary: "feminine hygiene products (young women)" },
       ],
@@ -318,17 +321,14 @@ const TrekLanding = (props) => {
         "labeled in original pack (to be checked in with medical staff).",
     },
     { primary: "Insect repellent" },
-    { primary: "Sunblock" },
+    { primary: "SUNSCREEN (not optional)" },
     { primary: "Sunglasses" },
     {
       primary: "Personal first aid kit",
-      secondary: "Band-Aids & Mole Skin for foot care",
+      secondary:
+        "5 Band-Aids & moleskin to put on sore spots to prevent blisters (Ma & Pa will have scissors to cut moleskin)",
     },
-    {
-      primary: "Pillowcase",
-      secondary: "use to make a pillow out of your jacket",
-    },
-    { primary: "Old set of scriptures in a Ziploc bag" },
+    { primary: "Old set of scriptures or a Church magazine" },
     {
       primary: "Sturdy work gloves",
       secondary: "for pulling the handcart - these are a MUST",
@@ -337,12 +337,21 @@ const TrekLanding = (props) => {
       primary: "Clothing",
       sublist: [
         {
-          primary: "2 pairs of tennis shoes or hiking boots",
-          secondary: "MUST BE broken in",
+          primary: "1 pair of tennis shoes, 1 pair of shoes to hike in",
+          secondary:
+            "DO NOT buy new ones, they will give you blisters. Sturdy running or tennis shoes will work if you don't have hiking boots",
         },
-        { primary: "4 pairs of sturdy socks + 1 thick pair to sleep in" },
-        { primary: "4 undergarments" },
+        {
+          primary:
+            "4 pairs of sturdy socks that wick moistrue away from the skin",
+        },
+        { primary: "2 undergarments" },
         { primary: "rain poncho" },
+        {
+          primary: "Tarp",
+          secondary:
+            "Enough plastic to serve as a ground cloth and shelter from the rain",
+        },
         { primary: "warm jacket" },
         { primary: "warm pajamas" },
         {
@@ -357,19 +366,24 @@ const TrekLanding = (props) => {
       sublist: [
         { primary: "1-2 bonnets" },
         { primary: "2 mid-calf length skirts and 2 blouses or 2 dresses" },
-        { primary: "1-2 aprons" },
+        { primary: "1-2 aprons", secondary: "With pockets" },
+        {
+          primary: "1 pair knee length bloomers",
+          secondary:
+            "Must be worn under dress - can be made out of old PJ bottoms",
+        },
       ],
     },
     {
       primary: "Young Men",
       sublist: [
         {
-          primary: "2 pairs of light-colored cotton pants",
+          primary: "2 pairs of wool or canvas pants",
           secondary:
             "NO camouflage, athletic pants or jeans* (see explanation above)",
         },
         {
-          primary: "2 long-sleeved, button up, light colored shirts",
+          primary: "2 long-sleeved, button up shirts",
           secondary: "Preferably cotton; NO t-shirts",
         },
         {
@@ -377,6 +391,21 @@ const TrekLanding = (props) => {
           secondary: "No baseball caps, beanies or army hats",
         },
         { primary: "Suspenders or vest", secondary: "Optional" },
+      ],
+    },
+    {
+      primary: "Optional Items",
+      sublist: [
+        {
+          primary: "Inexpensive or disposable camera",
+          secondary: "With new batteries and film",
+        },
+        {
+          primary: "Pocket or sheath knife",
+        },
+        {
+          primary: "Harmonica or other small instrument",
+        },
       ],
     },
     { primary: "No jewelry, makeup or electronics of any kind" },
@@ -406,6 +435,10 @@ const TrekLanding = (props) => {
     {
       position: "Food Committee Chairs",
       people: ["Julie & Nathan Ford (STV)"],
+    },
+    {
+      position: "Medical Chairs",
+      people: ["Deb & Court Koshar"],
     },
     {
       position: "Ward Trek Coordinators",
@@ -494,6 +527,7 @@ const TrekLanding = (props) => {
               </Typography>
               <Typography variant="subtitle1">This is the Place...</Typography>
               <Typography variant="subtitle1">Now is OUR Time!</Typography>
+              <YouTube videoId="Zf3th_97sro" opts={videoOptions} />
             </Grid>
           </Grid>
         </LandingElement>
@@ -516,17 +550,56 @@ const TrekLanding = (props) => {
             <Typography variant="body1" paragraph className={classes.subGoal}>
               in the Lord with all our heart.
             </Typography>
+            <Typography variant="subtitle2" className={classes.subGoal2}>
+              A knowledge of and faith in Jesus Christ sustained the pioneers as
+              they entered the waters of baptism, endured adversity, and helped
+              build Zion. We are sons and daughters of a Heavenly Father who
+              knows and loves us. By acting upon our faith, we will increase our
+              trust in the Savior, come to understand more clearly our role in
+              His plan, and obtain a greater appreciation for the blessings of
+              the restored gospel.
+            </Typography>
             <Box fontWeight={500}>STAND</Box>{" "}
             <Typography variant="body1" paragraph className={classes.subGoal}>
               firm in our testimony of the Savior.
+            </Typography>
+            <Typography variant="subtitle2" className={classes.subGoal2}>
+              In gathering to the west, the pioneers left homelands, families,
+              and friends to obey the call of a prophet and gather in Zion,
+              demonstrating sacrifice truly brings forth the blessings of
+              heaven. Making the necessary sacrifices to obey God’s commandments
+              with exactness, and hearken to the voice of His prophets, we will
+              lean not unto our own understanding, but diligently seek and act
+              upon personal revelation as we continue our journey of becoming
+              true disciples of Christ.
             </Typography>
             <Box fontWeight={500}>SERVE & RESCUE</Box>{" "}
             <Typography variant="body1" paragraph className={classes.subGoal}>
               all individuals the Lord places within our reach.
             </Typography>
+            <Typography variant="subtitle2" className={classes.subGoal2}>
+              Despite having few worldly goods, the pioneers enjoyed an
+              abundance of blessings from the unity they shared as brothers and
+              sisters in the Gospel. They sought to lift the downtrodden,
+              strengthen those in need, and rescue the stranded or alone. As we
+              learn to establish meaningful connections with others and build
+              unity through Christlike love and service, we will have a greater
+              appreciation for our new “trek family”, and our families at home,
+              as well as a better understanding of our individual and collective
+              responsibility in the Gathering of Israel.
+            </Typography>
             <Box fontWeight={500}>PRESS FORWARD</Box>{" "}
             <Typography variant="body1" paragraph className={classes.subGoal}>
               with steadfast faith in Christ.
+            </Typography>
+            <Typography variant="subtitle2" className={classes.subGoal2}>
+              Holding fast to their faith in God and their vision of Zion, the
+              handcart pioneers persevered through daunting conditions. They
+              witnessed and experienced countless miracles as they turned to God
+              in their trials. As we cheerfully endure adversity, we will
+              acknowledge the Lord’s hand in our lives, and delight in the
+              confidence of knowing God will continue to bear our burdens and
+              direct our paths.
             </Typography>
             <Img src={"/img/trek-22-theme-quote.png"} width="100%" />
           </Grid>
@@ -657,10 +730,23 @@ const TrekLanding = (props) => {
               All participants will need to complete the registration and
               permission form.
             </Typography>
-            <Typography variant="body1">
+            <Typography variant="body1" className={classes.regDetails}>
               <Link href="https://forms.gle/RyHfVM5RUEKapFkt5">
                 Register for T'22!
               </Link>
+            </Typography>
+            <Typography className={classes.regDetails}>
+              Youth participants are being asked to pay $40 each to offset the
+              total cost, Thunderbird Park Stake will cover the balance. Please
+              pay this fee at the ward level through a tithing envelope with the
+              youth’s name, indicate “other” and specify Trek. This option is
+              not available online.
+            </Typography>
+            <Typography variant="subtitle2" className={classes.regDetails}>
+              There is no charge for leaders.
+            </Typography>
+            <Typography className={classes.regFooter}>
+              Online Registration & Fees Due by March 31st!
             </Typography>
           </Grid>
         </LandingElement>
@@ -710,6 +796,15 @@ const TrekLanding = (props) => {
           img="/img/youth_simulation_pioneer_handcart_trek.png"
         >
           <Grid item xs={12} className={classes.landingGridContent}>
+            <Typography>
+              This list is provided to help you gather the gear you will need to
+              be a successful pioneer. Because of the weight and space
+              limitations of our handcart design and our attempt to create an
+              authentic pioneer experience, you will be limited in the amount of
+              gear you can bring. You will need the items listed here, but
+              please don’t bring anything else. We will not allow you to take it
+              with you.
+            </Typography>
             <Typography variant="body1">
               Plan to pack the following items (
               <Link href="/trek_22_packing_list.pdf">Download list</Link>):
@@ -740,6 +835,13 @@ const TrekLanding = (props) => {
                 </React.Fragment>
               ))}
             </List>
+            <Typography>
+              Please arrive dressed in pioneer clothing. You will be wearing one
+              set of clothing when you arrive, and the other set you will use
+              later. Use what you already have around the house or buy it from a
+              second-hand store such as Deseret Industries. You do not want to
+              wear good clothing that you wouldn’t want subject to heavy use.
+            </Typography>
           </Grid>
         </LandingElement>
         <LandingElement
