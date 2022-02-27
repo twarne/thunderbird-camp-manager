@@ -343,7 +343,7 @@ const TrekLanding = (props) => {
         },
         {
           primary:
-            "4 pairs of sturdy socks that wick moistrue away from the skin",
+            "4 pairs of sturdy socks that wick moisture away from the skin",
         },
         { primary: "2 undergarments" },
         { primary: "rain poncho" },
