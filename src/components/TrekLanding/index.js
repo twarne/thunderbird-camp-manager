@@ -280,9 +280,9 @@ const TrekLanding = (props) => {
 
   const packingList = [
     {
-      primary: "5-Gallon Bucket with lid",
+      primary: "5-Gallon Bucket with gamma lid",
       secondary:
-        "LABELED with name and ward, ALL gear must fit in bucket (except sleeping bag), bucket will be used as a STOOL and it also waterproofs your gear.",
+        "LABELED with name and ward, ALL gear must fit in bucket (except sleeping bag), bucket will be used as a STOOL and it also waterproofs your gear. A gamma lid is a screw top lid for a 5-gallon bucket.",
     },
     { primary: "Warm sleeping bag in a heavy-duty trash bag" },
     { primary: "Heavy-duty trash bag for dirty or wet clothes" },
@@ -295,7 +295,7 @@ const TrekLanding = (props) => {
       secondary: "Must be carried on you hands free",
     },
     {
-      primary: "1 Carabiners",
+      primary: "1 Carabiner",
       secondary: "To attach tin cup to belt loop or apron",
     },
     {
@@ -306,8 +306,8 @@ const TrekLanding = (props) => {
         { primary: "deodorant" },
         { primary: "lotion" },
         { primary: "Chap-stick with suncreen (not optional)" },
-        { primary: "comb or brush" },
-        { primary: "hand sanitizer and tissues" },
+        { primary: "Stick of anti-chafe balm (such as Body Glide)" },
+        { primary: "comb or brush; hair ties (if needed)" },
         {
           primary: "contact lens solution and case",
           secondary: "Consider wearing glasses instead of contacts",
@@ -366,7 +366,7 @@ const TrekLanding = (props) => {
       sublist: [
         { primary: "1-2 bonnets" },
         { primary: "2 mid-calf length skirts and 2 blouses or 2 dresses" },
-        { primary: "1-2 aprons", secondary: "With pockets" },
+        { primary: "1-2 aprons with pockets" },
         {
           primary: "1 pair knee length bloomers",
           secondary:
@@ -443,12 +443,12 @@ const TrekLanding = (props) => {
     {
       position: "Ward Trek Coordinators",
       people: [
-        "Arrowhead Ranch - Courtney Reynolds",
+        "Arrowhead Ranch - Dave & Amy Cardiff",
         "Mountain Ridge - Jordan Nelson",
         "Sierra Verde - Phil Collett",
         "Sonoran Mountain - Daron Kettler",
         "Stetson Valley - Cindy Rowe",
-        "Thunderbird Hills - Bill & Carolee Schlofman",
+        "Thunderbird Hills - Deb & Court Koshar",
       ],
     },
   ];
@@ -786,6 +786,10 @@ const TrekLanding = (props) => {
               To help protect from sun and insects, participants are encouraged
               to wear long sleeves, wide-brimmed hats or bonnets, and sunglasses
               (no baseball caps, beanies, or army hats).
+            </Typography>
+            <Typography variant="body1" paragraph>
+              As you prepare, you may consider this list of{" "}
+              <Link href="/trek_clothing_tips.pdf">clothing tips</Link>.
             </Typography>
           </Grid>
         </LandingElement>
