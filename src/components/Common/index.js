@@ -164,6 +164,11 @@ const styles = (theme) => ({
   dateInvited: {
     padding: theme.spacing(2),
   },
+  dateDetails: {
+  },
+  dateDetailsEm: {
+    fontWeight: "bold"
+  }
 });
 
 export default styles;
