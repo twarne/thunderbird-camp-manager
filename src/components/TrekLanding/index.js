@@ -263,10 +263,36 @@ const TrekLanding = (props) => {
       time: "10:00 AM - 2:00 PM (Wards will be assigned a specific window of time)",
       location: "Stake Center",
       invited: "All youth attending Trek and Ma's & Pa's",
+      details: [
+        "All youth, Ma’s/Pa’s will need to bring their 5 gallon buckets (packed with all of their gear, except the pioneer clothing and shoes you plan to wear up), a pair of jeans in a disposable bag (labeled with name & ward), and a garbage bag (untied for shake-down) with sleeping bag inside to the church at their designated time. Please be sure to use the packing list on the website, so you have everything you need. Anything that is not on the list is NOT allowed on trek. A Stake Trek Leader will work with each individual to go through their gear and ensure they have everything they need!. Gear will be left at the church, so it can be loaded on the truck and hauled to our location.",
+        "In an effort to have this process be as efficient as possible, please arrive at the Stake Center ready to go at the time designated for your ward!!",
+        "PLEASE NOTE: SHAKE DOWN WILL END AT 2PM!",
+        "10:00 - 11:00 am	Mountain Ridge & Sierra Verde",
+        "11:00 - 12:00 pm	Arrowhead Ranch & Sonoran Mountain",
+        "12:00 - 1:00  pm	Stetson Valley",
+        "1:00 - 2:00 pm 	Thunderbird Hills",
+      ],
     },
     {
       title: "T'22",
       date: "June 8-June 11, 2022",
+    },
+    {
+      title: "Departing for Trek",
+      date: "Wednesday, June 8, 2022",
+      time: "6:45 AM",
+      location: "Stake Center",
+      invited: "All youth attending Trek",
+      details:
+        "Please arrive at the stake center promptly by 6:45 am. Youth and leaders, please come dressed in your pioneer clothes ready to trek. Since you will have already checked your gear (including your tin drinking cup), you won’t need to bring anything with you!",
+    },
+    {
+      title: "Returning Home",
+      date: "Saturday, June 11, 2022",
+      time: "2:30 PM",
+      location: "Stake Center",
+      details:
+        "We will do our best to arrive as close to 2:30 pm as possible. Please be patient, as the youth won’t have their phones with them, so we’ll be kicking it old school, and shooting for as close to 2:30 pm as possible.",
     },
     {
       title: "T'22 Recap Devotional",
@@ -613,7 +639,7 @@ const TrekLanding = (props) => {
           <Grid item xs={12} className={classes.landingGridContent}>
             <List className={classes.root}>
               {importantDates.map(
-                ({ title, date, time, location, invited }, index) => (
+                ({ title, date, time, location, invited, details }, index) => (
                   <ListItem key={index}>
                     <ListItemText
                       primary={title}
@@ -628,6 +654,14 @@ const TrekLanding = (props) => {
                               <br />
                               <span className={classes.dateInvited}>
                                 {invited}
+                              </span>
+                            </React.Fragment>
+                          )}
+                          {details && (
+                            <React.Fragment>
+                              <br />
+                              <span className={classes.dateDetails}>
+                                {details}
                               </span>
                             </React.Fragment>
                           )}
